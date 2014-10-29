@@ -18,7 +18,7 @@ var load_state = {
 
     // Carrega images sprites
     this.game.load.image('logo', '../../assets/logo/phaser.png');
-    this.game.load.image('bullet', '../../assets/sprites/bullet.png');
+    this.game.load.image('bullet', '../../assets/sprites/bulletArrow.png');
     this.game.load.image('tower', '../../assets/sprites/tower.png');
     this.game.load.image('tower2', '../../assets/sprites/tower.png');
     this.game.load.image('tower3', '../../assets/sprites/tower.png');
