@@ -62,7 +62,7 @@ var play_state = {
       {x: 10, y: 7}, {x: 11, y: 7}, {x: 12, y: 7}, {x: 13, y: 7}, {x: 13, y: 8}, {x: 14, y: 8}, {x: 15, y: 8}, {x: 16, y: 8},
       {x: 16, y: 9}, {x: 16, y: 10}, {x: 17, y: 10}, {x: 18, y: 10}, {x: 19, y: 10}, {x: 20, y: 10}, {x: 20, y: 11}, {x: 21, y: 11},
       {x: 22, y: 11}, {x: 23, y: 11}, {x: 24, y: 11}, {x: 25, y: 11}];
-    // Cria grupo para Vila para facilicar a colisao com mudanca de vila entre os niveos
+    // Cria grupo para Vila para facilicar a colisao com mudanca de vila entre os niveis
     villages = this.game.add.group();
     villages.enableBody = true;
     this.game.physics.enable(villages, Phaser.Physics.ARCADE);
@@ -185,30 +185,38 @@ var play_state = {
     // TODO - checar se pode adicionar o sprite na posicao
     var x = pointer.x;
     var y = pointer.y;
-    var damage, range, fireRate, health, imortal, bulletSpeed, price, bulletSprite;
+    var offsetX, offsetY, damage, range, fireRate, health, imortal, bulletSpeed, price, bulletSprite;
     if (sprite.key === 'tower') {
-      sprite = 'tower';
-      damage =  50;
-      range =  4;
-      fireRate =  1500;
-      health =  1000;
-      imortal =  true;
-      bulletSpeed =  50;
-      price =  100;
-      bulletSprite = 'bullet';
+			sprite = 'tower';
+			damage =  50;
+			range =  6;
+			fireRate =  1500;
+			health =  1000;
+			imortal =  true;
+			bulletSpeed =  50;
+			price =  100;
+			bulletSprite = 'bullet';
 
-      tower1.x = 96;
-      tower1.y = 512;
+			//valores gritantes de offset soh para testar
+			offsetX = 70;
+			offsetY = 10;
+
+			tower1.x = 96;
+			tower1.y = 512;
     } else if (sprite.key === 'tower2') {
       sprite = 'tower2';
       damage =  300;
-      range =  2;
+      range =  4;
       fireRate =  2500;
       health =  1000;
       imortal =  true;
       bulletSpeed =  40;
       price =  300;
       bulletSprite = 'bullet';
+			
+			offsetX = 0;
+			offsetY = 10;
+			
       tower2.x = 160;
       tower2.y = 512;
     } else if (sprite.key === 'tower3') {
@@ -221,11 +229,15 @@ var play_state = {
       bulletSpeed =  75;
       price =  150;
       bulletSprite = 'bullet';
+			
+			offsetX = 0;
+			offsetY = 0;
+			
       tower3.x = 224;
       tower3.y = 512;
     }
     if (money >= price) {
-      new Tower(x, y, sprite, damage, range, fireRate, health, imortal, bulletSpeed, price, bulletSprite);
+      new Tower(x, y, offsetX, offsetY, sprite, damage, range, fireRate, health, imortal, bulletSpeed, price, bulletSprite);
     } else {
       // TODO - mensagem de sem dinheiro
       console.log('Not enought money to buy tower');
