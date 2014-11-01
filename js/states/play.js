@@ -25,6 +25,10 @@ var levelTextLevel;
 var tower1;
 var tower2;
 var tower3;
+// musica de fundo
+var bgMusic;
+// SFX
+var sfxVictory;
 
 
 var play_state = {
@@ -154,7 +158,13 @@ var play_state = {
     // texto da torre
     text = "Tower 3 \n $150 \n Rapid Fire ";
     this.game.add.text(216, 546, text, style);
+    
+    // Música de fundo da fase
+    bgMusic = this.game.add.audio('level1');
+    bgMusic.play('', 0, 1, true);
 
+    // SFX
+    sfxVictory = this.game.add.audio('victory');
   },
 
   update: function () {
@@ -239,8 +249,7 @@ var play_state = {
     if (money >= price) {
       new Tower(x, y, offsetX, offsetY, sprite, damage, range, fireRate, health, imortal, bulletSpeed, price, bulletSprite);
     } else {
-      // TODO - mensagem de sem dinheiro
-      console.log('Not enought money to buy tower');
+      this.console.log('Você não possui dinheiro suficiente para comprar esta torre!');
     }
   },
 
@@ -251,6 +260,9 @@ var play_state = {
   checkWaveEnd: function () {
     // TODO - verificar se todos os monstros ja morreram e iniciar proxima onda
     if (waveMonsters === 0) {
+      if (waveCurrent !== 0) {
+        sfxVictory.play();
+      }
       this.newWave();
     }
   },
@@ -259,6 +271,11 @@ var play_state = {
     // Voltar para o estado 'menu'
     this.game.world.removeAll();
     this.game.state.start('menu');
+    //Encerra a música e o SFX da fase
+    bgMusic.stop();
+    if (sfxVictory.isPlaying) {
+      sfxVictory.stop(); 
+    }
 
     // TODO limpar as variaveis e resetar os timers quando rodando
   },

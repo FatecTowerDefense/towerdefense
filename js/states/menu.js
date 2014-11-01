@@ -1,5 +1,12 @@
+var menuMusic = null;
 var menu_state = {
   create: function () {
+    if (menuMusic === null) {
+      menuMusic = game.add.audio('menu')
+    }
+    if (!menuMusic.isPlaying) {
+      menuMusic.play('', 0, 1, true);
+    }
     // Adiciona o botao de iniciar
     this.setStartButton();
     this.setCreditButton();
@@ -7,6 +14,7 @@ var menu_state = {
 
   // Vai para o estado de 'start' iniciando o jogo
   start: function () {
+    menuMusic.stop();
     this.game.state.start('play');
   },
 

@@ -29,6 +29,13 @@ var load_state = {
     // Carrega o tilemap - json e imagem
     this.game.load.tilemap('jsonmap', '../../assets/tilemaps/desert.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.image('tilesmap', '../../assets/tilemaps/tmw_desert_spacing.png');
+    
+    // Carrega os arquivos de SFX do jogo
+    this.game.load.audio('victory', '../../assets/audio/victory.mp3', '../../assets/audio/victory.ogg');
+    
+    // Carrega os arquivos de BGM do jogo
+    this.game.load.audio('level1', '../../assets/audio/level1.mp3', '../../assets/audio/victory.ogg');
+    this.game.load.audio('menu', '../../assets/audio/menu.mp3', '../../assets/audio/menu.ogg');
 
   },
 
