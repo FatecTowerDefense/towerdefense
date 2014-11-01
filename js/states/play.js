@@ -1,4 +1,4 @@
-/*globals  Phaser, Village, Monster, Tower, Wave */
+/*globals  Phaser, Village, Monster, Tower, Wave, Pathfinder */
 
 /* Global Variables */
 
@@ -57,15 +57,22 @@ var play_state = {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     // Cria e aplica o tile map
     var map = this.game.add.tilemap('jsonmap');
-    map.addTilesetImage('Desert', 'tilesmap');
-    var layer = map.createLayer('Ground');
+		
+		//pega imagens do tileset: primeiro argumento eh o nome desse tileset no JSON;
+		//o segundo eh a chave da imagem do tileset, criada no preload
+    map.addTilesetImage('tileSet', 'tilesmap');
+		//cria camada definida no JSON
+    var layer = map.createLayer('buildables');
+		
     layer.resizeWorld();
     // caminho a ser percorrido pelos monstros
-    tilePath = [{x: 1, y: 1}, {x: 2, y: 1}, {x: 2, y: 2}, {x: 2, y: 3}, {x: 2, y: 4}, {x: 2, y: 5}, {x: 2, y: 6},
+    /*tilePath = [{x: 1, y: 1}, {x: 2, y: 1}, {x: 2, y: 2}, {x: 2, y: 3}, {x: 2, y: 4}, {x: 2, y: 5}, {x: 2, y: 6},
       {x: 3, y: 6}, {x: 4, y: 6}, {x: 5, y: 6}, {x: 6, y: 6}, {x: 7, y: 6}, {x: 8, y: 6}, {x: 9, y: 6}, {x: 10, y: 6},
       {x: 10, y: 7}, {x: 11, y: 7}, {x: 12, y: 7}, {x: 13, y: 7}, {x: 13, y: 8}, {x: 14, y: 8}, {x: 15, y: 8}, {x: 16, y: 8},
       {x: 16, y: 9}, {x: 16, y: 10}, {x: 17, y: 10}, {x: 18, y: 10}, {x: 19, y: 10}, {x: 20, y: 10}, {x: 20, y: 11}, {x: 21, y: 11},
-      {x: 22, y: 11}, {x: 23, y: 11}, {x: 24, y: 11}, {x: 25, y: 11}];
+      {x: 22, y: 11}, {x: 23, y: 11}, {x: 24, y: 11}, {x: 25, y: 11}];*/
+		
+		tilePath = this.calcPath(map, layer);
     // Cria grupo para Vila para facilicar a colisao com mudanca de vila entre os niveis
     villages = this.game.add.group();
     villages.enableBody = true;
@@ -90,6 +97,7 @@ var play_state = {
     bullets.setAll('outOfBoundsKill', true);
     bullets.setAll('checkWorldBounds', true);
     bullets.setAll('anchor.x', 0.5);
+		bullets.setAll('anchor.y', 0.5);
 
     // Adiciona botao de iniciar para iniciar a onda
     this.startWaveButton = this.game.add.button(650, 50, 'start', this.newWave, this, 1, 0, 1);
@@ -274,7 +282,7 @@ var play_state = {
     //Encerra a música e o SFX da fase
     bgMusic.stop();
     if (sfxVictory.isPlaying) {
-      sfxVictory.stop(); 
+      sfxVictory.stop();
     }
 
     // TODO limpar as variaveis e resetar os timers quando rodando
@@ -286,7 +294,7 @@ var play_state = {
     // Pode intercalar e repetir monstros e sequencias
     // Ele deixa um espaço vazio entre cada item da onda
     waveCurrent++;
-    new Wave([{sprite: 'person', amount: 3}, {sprite: 'person', amount: 2}], 5000, 1000, 250);
+    new Wave([{sprite: 'person', amount: 3}, {sprite: 'person', amount: 2}], 5000, 1000, 250, tilePath[0].x, tilePath[0].y);
     if (waveCurrent > 3) {
       waveCurrent = 1;
       levelCurrent++;
@@ -302,5 +310,106 @@ var play_state = {
     // manda o monstro verificar se morreu
     Monster.prototype.death(monster);
   },
+	
+	calcPath : function (tilemap, layer) {
+	//tentativa de pathfinding. vamulaaaa
+	//esse eh o array que sera retornado para o tilePAth
+	//e o x e y da base ou torre defendida
+		var pathArray = [], yDetect, xDetect, oldTile;
+
+		//primeiro de tudo, encontra o tile que foi marcado como base no tilemap
+		//indice da base no JSON = 1, layer = buildables
+		for (yDetect = 0; yDetect < tilemap.height; yDetect++) {
+			for (xDetect = 0; xDetect < tilemap.width; xDetect++) {
+				var tile = tilemap.getTile(xDetect, yDetect, layer, true);
+				if (tile.index === 1) {
+					console.log("Base em " + xDetect + ", " + yDetect);
+					pathArray.unshift({x : xDetect, y : yDetect});
+					break;
+				}
+
+			}
+
+			if (pathArray.length > 0) {
+				//ja achou, paraaaa
+				break;
+			}
+		}
+		
+		
+		
+		//agora, confere os tiles ao redor da base para encontrar um tile marcado com index de path (4)
+		//adiciona no pathArray quando achar
+		//valores iniciais de previous x e y malucos para ele nao desprezar nenhum lado
+		var tileToAdd = this.checkIndexAroundTile(tilemap, layer, 4, xDetect, yDetect, -50, -50);
+
+
+
+		if (tileToAdd !== null) {
+			pathArray.unshift({x : tileToAdd.x, y : tileToAdd.y});
+			oldTile = pathArray[1];
+		} else {
+			this.console.error("nenhum caminho encontrado partindo da base (pelo menos a base foi encontrada)!");
+			return null;
+		}
+
+		//vai adicionando os pontos ate nao encontrar nenhum
+		while (tileToAdd !== null) {
+
+			tileToAdd = this.checkIndexAroundTile(tilemap, layer, 4, tileToAdd.x, tileToAdd.y, oldTile.x, oldTile.y);
+			if (tileToAdd !== null) {
+				pathArray.unshift({x : tileToAdd.x, y : tileToAdd.y});
+				oldTile = pathArray[1];
+			} else {
+				console.log("caminho calculado!");
+				return pathArray;
+			}
+
+
+		}
+
+		
+	},
+	
+	checkIndexAroundTile : function (tilemap, layer, desiredIndex, tileX, tileY, previousX, previousY) {
+		
+		//console.log(tilemap.layers[0].data[0]
+		//console.log(layer);
+
+		var tile = tilemap.getTile(tileX + 1, tileY, layer, true);
+		//console.log((tileX - 1) + ", " + tileY);
+		//console.log(tilemap.getTile(tileX - 1, tileY, layer, true));
+
+		if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX + 1) || (previousY !== tileY))) {
+			//console.log("Mais um node em " + (tileX + 1) + ", " + (tileY));
+			return tile;
+		} else {
+
+			tile = tilemap.getTile(tileX, tileY + 1, layer, true);
+			if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX) || (previousY !== tileY + 1))) {
+				//console.log("Mais um node em " + (tileX) + ", " + (tileY + 1));
+				return tile;
+			} else {
+
+				tile = tilemap.getTile(tileX - 1, tileY, layer, true);
+				if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX - 1) || (previousY !== tileY))) {
+					//console.log("Mais um node em " + (tileX - 1) + ", " + (tileY));
+					return tile;
+				} else {
+
+					tile = tilemap.getTile(tileX, tileY - 1, layer, true);
+					if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX) || (previousY !== tileY - 1))) {
+						//console.log("Mais um node em " + (tileX) + ", " + (tileY - 1));
+						return tile;
+					} else {
+					//console.log("Acabou o caminho");
+						return null;
+					}
+				}
+			}
+		}
+		
+	}
+	
 
 };

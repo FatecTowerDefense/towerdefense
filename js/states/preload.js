@@ -27,8 +27,8 @@ var load_state = {
     this.game.load.spritesheet('person', '../../assets/sprites/person.png', 32, 32, 4);
 
     // Carrega o tilemap - json e imagem
-    this.game.load.tilemap('jsonmap', '../../assets/tilemaps/desert.json', null, Phaser.Tilemap.TILED_JSON);
-    this.game.load.image('tilesmap', '../../assets/tilemaps/tmw_desert_spacing.png');
+    this.game.load.tilemap('jsonmap', '../../assets/tilemaps/fase1Teste.json', null, Phaser.Tilemap.TILED_JSON);
+    this.game.load.image('tilesmap', '../../assets/tilemaps/tileSet.png');
     
     // Carrega os arquivos de SFX do jogo
     this.game.load.audio('victory', '../../assets/audio/victory.mp3', '../../assets/audio/victory.ogg');
