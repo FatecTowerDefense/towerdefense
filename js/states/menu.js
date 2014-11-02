@@ -5,7 +5,7 @@ var menu_state = {
       menuMusic = game.add.audio('menu');
     }
     if (!menuMusic.isPlaying) {
-      menuMusic.play();
+      menuMusic.play('', 0, 1, true);
     }
     // Adiciona o botao de iniciar
     this.setStartButton();

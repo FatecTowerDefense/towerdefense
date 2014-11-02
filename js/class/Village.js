@@ -56,9 +56,14 @@ Village.prototype.death = function (village) {
     game.add.text(200, 250, "Sua vila foi destrúida!", styleDeath);
     var sfxGameOver = game.add.audio('gameover');
     sfxGameOver.play();
+    if (bgMusic.isPlaying) {
+     bgMusic.stop(); 
+    }
 
     // espera 5 segundos e joga para o menu
     setTimeout(function () {
+      if (sfxGameOver.isPlaying)
+        sfxGameOver.stop();
       this.game.state.start('menu');
     }, 5000);
 
