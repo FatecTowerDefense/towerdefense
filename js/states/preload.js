@@ -31,11 +31,13 @@ var load_state = {
     this.game.load.image('tilesmap', '../../assets/tilemaps/tileSet.png');
     
     // Carrega os arquivos de SFX do jogo
-    this.game.load.audio('victory', '../../assets/audio/victory.mp3', '../../assets/audio/victory.ogg');
+    this.game.load.audio('victory', '../../assets/audio/victory.ogg', '../../assets/audio/victory.mp3');
+    this.game.load.audio('gameover', '../../assets/audio/gameover.ogg', '../../assets/audio/gameover.mp3');
+    this.game.load.audio('towerCreated', '../../assets/audio/towerCreated.ogg', '../../assets/audio/towerCreated.mp3');
     
     // Carrega os arquivos de BGM do jogo
-    this.game.load.audio('level1', '../../assets/audio/level1.mp3', '../../assets/audio/victory.ogg');
-    this.game.load.audio('menu', '../../assets/audio/menu.mp3', '../../assets/audio/menu.ogg');
+    this.game.load.audio('level1', '../../assets/audio/level1.ogg', '../../assets/audio/victory.mp3');
+    this.game.load.audio('menu', '../../assets/audio/menu.ogg', '../../assets/audio/menu.mp3');
 
   },
 
@@ -46,13 +48,20 @@ var load_state = {
 
   update: function () {
     // todo frame verifica se ja esta pronto, qd estiver vai para o estado 'menu'
-    if (!!this.ready) {
-      this.game.state.start('menu');
+    if (this.cache.isSoundDecoded('menu') && 
+        this.cache.isSoundDecoded('gameover') &&
+        this.cache.isSoundDecoded('towerCreated') &&
+        this.cache.isSoundDecoded('victory') &&
+        this.cache.isSoundDecoded('level1'))
+    {
+      if (this.ready) {
+        this.game.state.start('menu');
+      }
     }
   },
 
   loadComplete: function () {
-    // Assim que tudo estiver carregado, vai para o estado de 'menu'      
+    // Assim que tudo estiver carregado, vai para o estado de 'menu'
     this.ready = true;
   },
 

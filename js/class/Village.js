@@ -53,7 +53,9 @@ Village.prototype.death = function (village) {
 
     // Cria textos de perda
     var styleDeath = { font: "28px Arial", fill: "#FF0000", align: "center" };
-    game.add.text(200, 250, "Your Village was Destroyed", styleDeath);
+    game.add.text(200, 250, "Sua vila foi destrúida!", styleDeath);
+    var sfxGameOver = game.add.audio('gameover');
+    sfxGameOver.play();
 
     // espera 5 segundos e joga para o menu
     setTimeout(function () {

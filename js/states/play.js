@@ -29,7 +29,7 @@ var tower3;
 var bgMusic;
 // SFX
 var sfxVictory;
-
+var sfxTower;
 
 var play_state = {
   // TODO PRINCIPAL
@@ -173,6 +173,8 @@ var play_state = {
 
     // SFX
     sfxVictory = this.game.add.audio('victory');
+    sfxTower = this.game.add.audio('towerCreated');
+    
   },
 
   update: function () {
@@ -256,6 +258,7 @@ var play_state = {
     }
     if (money >= price) {
       new Tower(x, y, offsetX, offsetY, sprite, damage, range, fireRate, health, imortal, bulletSpeed, price, bulletSprite);
+      sfxTower.play();
     } else {
       this.console.log('Você não possui dinheiro suficiente para comprar esta torre!');
     }
@@ -276,14 +279,14 @@ var play_state = {
   },
 
   restartGame: function () {
-    // Voltar para o estado 'menu'
-    this.game.world.removeAll();
-    this.game.state.start('menu');
     //Encerra a música e o SFX da fase
     bgMusic.stop();
     if (sfxVictory.isPlaying) {
       sfxVictory.stop();
     }
+    // Voltar para o estado 'menu'
+    this.game.world.removeAll();
+    this.game.state.start('menu');
 
     // TODO limpar as variaveis e resetar os timers quando rodando
   },

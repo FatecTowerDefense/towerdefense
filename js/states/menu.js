@@ -2,10 +2,10 @@ var menuMusic = null;
 var menu_state = {
   create: function () {
     if (menuMusic === null) {
-      menuMusic = game.add.audio('menu')
+      menuMusic = game.add.audio('menu');
     }
     if (!menuMusic.isPlaying) {
-      menuMusic.play('', 0, 1, true);
+      menuMusic.play();
     }
     // Adiciona o botao de iniciar
     this.setStartButton();
@@ -22,7 +22,6 @@ var menu_state = {
   credit: function () {
     this.game.state.start('credit');
   },
-
 
   update: function () {
     // Ha algum problema com a posicao em relacao ao mundo quando retorna ao estado de menu
