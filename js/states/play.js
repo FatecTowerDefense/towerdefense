@@ -1,4 +1,4 @@
-/*globals  Phaser, Village, Monster, Tower, Wave, Pathfinder */
+/*globals  Phaser, Village, Monster, Tower, Wave */
 
 /* Global Variables */
 
@@ -301,7 +301,7 @@ var play_state = {
     // Pode intercalar e repetir monstros e sequencias
     // Ele deixa um espaço vazio entre cada item da onda
     waveCurrent++;
-    new Wave([{sprite: 'person', amount: 3}, {sprite: 'person', amount: 2}], 5000, 1000, 250, tilePath[0].x, tilePath[0].y);
+    new Wave([{sprite: 'person', amount: 3}, {sprite: 'person', amount: 2}], 5000, 1000, 250);
     if (waveCurrent > 3) {
       waveCurrent = 1;
       levelCurrent++;
@@ -380,36 +380,28 @@ var play_state = {
 	
 	checkIndexAroundTile : function (tilemap, layer, desiredIndex, tileX, tileY, previousX, previousY) {
 		
-		//console.log(tilemap.layers[0].data[0]
-		//console.log(layer);
+		
 
 		var tile = tilemap.getTile(tileX + 1, tileY, layer, true);
-		//console.log((tileX - 1) + ", " + tileY);
-		//console.log(tilemap.getTile(tileX - 1, tileY, layer, true));
-
+		
 		if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX + 1) || (previousY !== tileY))) {
-			//console.log("Mais um node em " + (tileX + 1) + ", " + (tileY));
 			return tile;
 		} else {
 
 			tile = tilemap.getTile(tileX, tileY + 1, layer, true);
 			if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX) || (previousY !== tileY + 1))) {
-				//console.log("Mais um node em " + (tileX) + ", " + (tileY + 1));
 				return tile;
 			} else {
 
 				tile = tilemap.getTile(tileX - 1, tileY, layer, true);
 				if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX - 1) || (previousY !== tileY))) {
-					//console.log("Mais um node em " + (tileX - 1) + ", " + (tileY));
 					return tile;
 				} else {
 
 					tile = tilemap.getTile(tileX, tileY - 1, layer, true);
 					if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX) || (previousY !== tileY - 1))) {
-						//console.log("Mais um node em " + (tileX) + ", " + (tileY - 1));
 						return tile;
 					} else {
-					//console.log("Acabou o caminho");
 						return null;
 					}
 				}
