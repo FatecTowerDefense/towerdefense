@@ -61,17 +61,21 @@ var play_state = {
 		//pega imagens do tileset: primeiro argumento eh o nome desse tileset no JSON;
 		//o segundo eh a chave da imagem do tileset, criada no preload
     map.addTilesetImage('tileSet', 'tilesmap');
-		//cria camada definida no JSON
-    var layer = map.createLayer('buildables');
+		
+		//pega outra imagem do tileset, essa eh um tile gigante, que ocupa o mapa inteiro, pra mostrar o cenario
+		map.addTilesetImage('map1Img', 'map1Image');
+		//cria camadas definidas no JSON
+    var layer = map.createLayer('buildables'), imgLayer = map.createLayer('scenario');
 		
     layer.resizeWorld();
-    // caminho a ser percorrido pelos monstros
+    // (antigo) caminho a ser percorrido pelos monstros
     /*tilePath = [{x: 1, y: 1}, {x: 2, y: 1}, {x: 2, y: 2}, {x: 2, y: 3}, {x: 2, y: 4}, {x: 2, y: 5}, {x: 2, y: 6},
       {x: 3, y: 6}, {x: 4, y: 6}, {x: 5, y: 6}, {x: 6, y: 6}, {x: 7, y: 6}, {x: 8, y: 6}, {x: 9, y: 6}, {x: 10, y: 6},
       {x: 10, y: 7}, {x: 11, y: 7}, {x: 12, y: 7}, {x: 13, y: 7}, {x: 13, y: 8}, {x: 14, y: 8}, {x: 15, y: 8}, {x: 16, y: 8},
       {x: 16, y: 9}, {x: 16, y: 10}, {x: 17, y: 10}, {x: 18, y: 10}, {x: 19, y: 10}, {x: 20, y: 10}, {x: 20, y: 11}, {x: 21, y: 11},
       {x: 22, y: 11}, {x: 23, y: 11}, {x: 24, y: 11}, {x: 25, y: 11}];*/
 		
+		//caminho sendo calculado
 		tilePath = this.calcPath(map, layer);
     // Cria grupo para Vila para facilicar a colisao com mudanca de vila entre os niveis
     villages = this.game.add.group();
