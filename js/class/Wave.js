@@ -1,4 +1,4 @@
-/*globals game, waveMonsters:true, Monster, monstersBlock:true */
+/*globals game, waveMonsters:true, Monster, monstersBlock:true, tilePath */
 var Wave = function (monsterSprite, timeToStart, timeBetween, points) {
   // Recebe as variaveis
   // cria a wave como sprite para receber as propriedades - verificar como gerar objeto generico
@@ -40,7 +40,7 @@ Wave.prototype.begin = function (wave) {
       // Para cada um dentro da quantidade definida em amount
       if (i < wave.monsterSprite[j].amount) {
         // Cria o monstro com o sprite especifico
-        new Monster(1, 0, wave.monsterSprite[j].sprite, 1, 1, 20, 150); // xTile, yTile, sprite, spriteLength, speed, damage, health
+        new Monster(tilePath[0].x, tilePath[0].y, wave.monsterSprite[j].sprite, 1, 1, 20, 150); // xTile, yTile, sprite, spriteLength, speed, damage, health
         i++;
       } else {
         j++;

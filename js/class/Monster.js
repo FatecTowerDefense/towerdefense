@@ -4,7 +4,7 @@ var Monster = function (xTile, yTile, sprite, spriteLength, speed, damage, healt
   // pelo nome do monstro e pegar os dados de uma lista global
 
   // Adiciona sprite na posicao
-  this.monster = game.add.sprite(xTile * tileSize, yTile * tileSize, sprite);
+  this.monster = game.add.sprite(xTile * tileSize -1, yTile * tileSize, sprite);
   this.monster.scale.set(1);
   this.monster.xTile = xTile;
   this.monster.yTile = yTile;
@@ -31,13 +31,13 @@ var Monster = function (xTile, yTile, sprite, spriteLength, speed, damage, healt
   this.monster.lifeBar = game.add.graphics(0, 0); // inicia o retangulo
   this.monster.lifeBar.lineStyle(2, 0x000000, 1); // largura, cor, alfa
   this.monster.lifeBar.beginFill(0xFFFF00, 0.8); // cor, alfa
-  this.monster.lifeBar.drawRect(this.monster.x - this.monster.width / 2, this.monster.y - this.monster.height / 2, this.monster.width, 5); // x, y, largura, altura
+  this.monster.lifeBar.drawRect(this.monster.x - this.monster.width, this.monster.y, this.monster.width, 5); // x, y, largura, altura
 
   // Desenha um retângulo de vida sobre cada personagem
   this.monster.lifeBarStatus = game.add.graphics(0, 0); // inicia o retangulo
   this.monster.lifeBarStatus.lineStyle(2, 0x000000, 0); // largura, cor, alfa
   this.monster.lifeBarStatus.beginFill(0x00FF00, 0.9); // cor, alfa
-  this.monster.lifeBarStatus.drawRect(this.monster.x - this.monster.width / 2, this.monster.y - this.monster.height / 2, this.monster.width, 5); // x, y, largura, altura
+  this.monster.lifeBarStatus.drawRect(this.monster.x - this.monster.width, this.monster.y, this.monster.width, 5); // x, y, largura, altura
 
   // Inicia movimentacao
   Monster.prototype.nextMove(this.monster);
@@ -65,11 +65,11 @@ Monster.prototype.move = function (monster) {
   }
 
   // Atualiza a barra de vida
-  monster.lifeBar.x = monster.x - monster.width;
-  monster.lifeBar.y = monster.y - monster.height / 2;
+  monster.lifeBar.x = monster.x + (monster.width / 2) - (tilePath[0].x * tileSize);
+  monster.lifeBar.y = monster.y - monster.height - (tilePath[0].y * tileSize);
   // Atualiza posicao da barra de vida atual
-  monster.lifeBarStatus.x = monster.x - monster.width;
-  monster.lifeBarStatus.y = monster.y - monster.height / 2;
+  monster.lifeBarStatus.x = monster.x + (monster.width / 2) - (tilePath[0].x * tileSize);
+  monster.lifeBarStatus.y = monster.y - monster.height - (tilePath[0].y * tileSize);
   // Calcula o dano tomado - escala e posiciona a barra de vida atual
   var damTaken = monster.health / monster.totalHealth;
   monster.lifeBarStatus.scale.x = damTaken;
