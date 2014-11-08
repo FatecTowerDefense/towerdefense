@@ -73,7 +73,7 @@ Monster.prototype.move = function (monster) {
   // Calcula o dano tomado - escala e posiciona a barra de vida atual
   var damTaken = monster.health / monster.totalHealth;
   monster.lifeBarStatus.scale.x = damTaken;
-  monster.lifeBarStatus.x += (1 - (monster.health / monster.totalHealth)) * monster.width / 2;
+  monster.lifeBarStatus.x += (1 - (monster.health / monster.totalHealth));
 
 };
 
