@@ -17,7 +17,7 @@ var credit_state = {
   update: function () {
     // Ha algum problema com a posicao em relacao ao mundo quando retorna ao estado de menu
     // Vou deixar fixo perto para ter menu por enquanto
-    this.startButton.x = 650;
+    this.startButton.x = 550;
     this.startButton.y = 50;
   },
 

@@ -26,10 +26,10 @@ var menu_state = {
   update: function () {
     // Ha algum problema com a posicao em relacao ao mundo quando retorna ao estado de menu
     // Vou deixar fixo perto para ter menu por enquanto
-    this.startButton.x = 380;
+    this.startButton.x = 300;
     this.startButton.y = 300;
 
-    this.creditButton.x = 380;
+    this.creditButton.x = 300;
     this.creditButton.y = 400;
   },
 

@@ -20,7 +20,7 @@ var towers;
 var bullets;
 // texto de status e nivel
 var statusText;
-var levelTextLevel;
+// var levelTextLevel;
 // torres
 var tower1;
 var tower2;
@@ -102,9 +102,16 @@ var play_state = {
     bullets.setAll('checkWorldBounds', true);
     bullets.setAll('anchor.x', 0.5);
 		bullets.setAll('anchor.y', 0.5);
+		
+    // Desenha um retângulo de menu de botões na parte inferior
+    var shape = this.game.add.graphics(0, 0); // inicia o retangulo
+    shape.lineStyle(2, 0x000000, 0.8); // largura, cor, alfa
+    shape.beginFill(0x222222, 0.8); // cor, alfa
+    shape.drawRect(0, 650, this.game.width, 128); // x, y, largura, altura
+    shape.endFill();
 
     // Adiciona botao de iniciar para iniciar a onda
-    this.startWaveButton = this.game.add.button(650, 50, 'start', this.newWave, this, 1, 0, 1);
+    this.startWaveButton = this.game.add.button(550, this.game.height-50, 'start', this.newWave, this, 1, 0, 1);
     this.startWaveButton.scale.set(0.3);
     this.startWaveButton.anchor.setTo(0.5, 0.5);
     this.startWaveButton.inputEnabled = true;
@@ -112,34 +119,28 @@ var play_state = {
 
     // Adiciona botao de voltar ao menu
     // TODO - remover os objetos e limpar dados antes de voltar
-    this.stopButton = this.game.add.button(650, 140, 'start', this.restartGame, this, 1, 0, 1);
+    this.stopButton = this.game.add.button(100, 50, 'start', this.restartGame, this, 1, 0, 1);
     this.stopButton.scale.set(0.3);
     this.stopButton.tint = 0xff00ff;
     this.stopButton.anchor.setTo(0.5, 0.5);
     this.stopButton.inputEnabled = true;
     this.stopButton.input.useHandCursor = true;
 
-    // Desenha um retângulo de menu de botões na parte inferior
-    var shape = this.game.add.graphics(0, 0); // inicia o retangulo
-    shape.lineStyle(2, 0x000000, 0.8); // largura, cor, alfa
-    shape.beginFill(0x222222, 0.8); // cor, alfa
-    shape.drawRect(0, (this.game.height / 5) * 4, this.game.width, this.game.height / 5); // x, y, largura, altura
-    shape.endFill();
-
     // Cria textos de pontuacao dinheiro e onda
-    var text = "Money: " + money + " \nScore: " + score;
-    var style = { font: "14px Arial", fill: "#000000", align: "left" };
-    statusText = this.game.add.text(10, 10, text, style);
+    // var text = "Money: " + money + " \nScore: " + score;
+    var text = "$ " + money;
+    var style = { font: "14px Arial", fill: "#FFFFFF", align: "left" };
+    statusText = this.game.add.text(550,  this.game.height-100, text, style);
 
     // Cria textos de Level e Onda
     var textLevel = "Level: " + levelCurrent + " \nWave: " + waveCurrent;
-    var styleLevel = { font: "14px Arial", fill: "#000000", align: "left" };
-    levelTextLevel = this.game.add.text(200, 10, textLevel, styleLevel);
+    var styleLevel = { font: "14px Arial", fill: "#FFFFFF", align: "left" };
+    // levelTextLevel = this.game.add.text(200, 10, textLevel, styleLevel);
 
     // Desenha os botes de adicionar torre
     // Torre Tipo 1
-    this.game.add.sprite(96, 512, 'tower');
-    tower1 = this.game.add.sprite(96, 512, 'tower');
+    this.game.add.sprite(96, 660, 'tower');
+    tower1 = this.game.add.sprite(96, 660, 'tower');
     tower1.inputEnabled = true;
     tower1.input.enableDrag();
     tower1.input.enableSnap(32, 32, true, true);
@@ -147,29 +148,29 @@ var play_state = {
     // texto da torre
     text = "Tower 1 \n $100 \n Constant ";
     style = { font: "11px Arial", fill: "#FFFFFF", align: "center" };
-    this.game.add.text(88, 546, text, style);
+    this.game.add.text(88, 694, text, style);
 
     // Torre Tipo 2
-    this.game.add.sprite(160, 512, 'tower2');
-    tower2 = this.game.add.sprite(160, 512, 'tower2');
+    this.game.add.sprite(160, 660, 'tower2');
+    tower2 = this.game.add.sprite(160, 660, 'tower2');
     tower2.inputEnabled = true;
     tower2.input.enableDrag();
     tower2.input.enableSnap(32, 32, true, true);
     tower2.events.onDragStop.add(this.onDragStop, this);
     // texto da torre
     text = "Tower 2 \n $300 \n Power";
-    this.game.add.text(152, 546, text, style);
+    this.game.add.text(152, 694, text, style);
 
     // Torre Tipo 3
-    this.game.add.sprite(224, 512, 'tower3');
-    tower3 = this.game.add.sprite(224, 512, 'tower3');
+    this.game.add.sprite(224, 660, 'tower3');
+    tower3 = this.game.add.sprite(224, 660, 'tower3');
     tower3.inputEnabled = true;
     tower3.input.enableDrag();
     tower3.input.enableSnap(32, 32, true, true);
     tower3.events.onDragStop.add(this.onDragStop, this);
     // texto da torre
     text = "Tower 3 \n $150 \n Rapid Fire ";
-    this.game.add.text(216, 546, text, style);
+    this.game.add.text(216, 694, text, style);
     
     // Música de fundo da fase
     bgMusic = this.game.add.audio('level1');
@@ -226,7 +227,7 @@ var play_state = {
 			offsetY = 10;
 
 			tower1.x = 96;
-			tower1.y = 512;
+			tower1.y = 660;
     } else if (sprite.key === 'tower2') {
       sprite = 'tower2';
       damage =  300;
@@ -242,7 +243,7 @@ var play_state = {
 			offsetY = 10;
 			
       tower2.x = 160;
-      tower2.y = 512;
+      tower2.y = 660;
     } else if (sprite.key === 'tower3') {
       sprite = 'tower3';
       damage =  15;
@@ -258,7 +259,7 @@ var play_state = {
 			offsetY = 0;
 			
       tower3.x = 224;
-      tower3.y = 512;
+      tower3.y = 660;
     }
     if (money >= price) {
       new Tower(x, y, offsetX, offsetY, sprite, damage, range, fireRate, health, imortal, bulletSpeed, price, bulletSprite);
@@ -269,7 +270,8 @@ var play_state = {
   },
 
   updateTexts: function () {
-    statusText.setText("Money: " + money + " \nScore: " + score);
+    // statusText.setText("Money: " + money + " \nScore: " + score);
+    statusText.setText("$ " + money);
   },
 
   checkWaveEnd: function () {
@@ -306,7 +308,7 @@ var play_state = {
       waveCurrent = 1;
       levelCurrent++;
     }
-    levelTextLevel.setText("Level: " + levelCurrent + " \nWave: " + waveCurrent);
+    // levelTextLevel.setText("Level: " + levelCurrent + " \nWave: " + waveCurrent);
   },
 
   collisionChecker: function (bullet, monster) {

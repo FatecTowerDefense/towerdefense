@@ -1,5 +1,5 @@
 // Inicializa Phaser
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'towerDefense');
+var game = new Phaser.Game(640, 768, Phaser.AUTO, 'towerDefense');
 
 // Define os estados
 game.state.add('boot', boot_state);
