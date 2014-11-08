@@ -4,7 +4,7 @@ var Village = function (sprite, health) {
   var xTile = tilePath[tilePath.length - 2].x;
   var yTile = tilePath[tilePath.length - 2].y;
   // Adiciona a sprite
-  this.village = game.add.sprite(xTile * tileSize, yTile * tileSize, sprite);
+  this.village = game.add.sprite((xTile - 1) * tileSize, (yTile - 1) * tileSize, sprite);
   // Vida da cidade
   this.village.health = health;
   this.village.totalHealth = health;
