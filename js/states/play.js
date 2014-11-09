@@ -227,9 +227,8 @@ var play_state = {
 			price =  100;
 			bulletSprite = 'bullet';
 
-			//valores gritantes de offset soh para testar
-			offsetX = 70;
-			offsetY = 10;
+			offsetX = 30;
+			offsetY = 20;
 
 			tower1.x = 96;
 			tower1.y = 660;
@@ -244,8 +243,8 @@ var play_state = {
       price =  300;
       bulletSprite = 'bullet';
 			
-			offsetX = 0;
-			offsetY = 10;
+			offsetX = 30;
+			offsetY = 20;
 			
       tower2.x = 160;
       tower2.y = 660;
@@ -260,8 +259,8 @@ var play_state = {
       price =  150;
       bulletSprite = 'bullet';
 			
-			offsetX = 0;
-			offsetY = 0;
+			offsetX = 30;
+			offsetY = 24;
 			
       tower3.x = 224;
       tower3.y = 660;

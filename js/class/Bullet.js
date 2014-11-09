@@ -19,6 +19,8 @@ Bullet.prototype.setVelocVector = function (bullet) {
 	//normaliza
 	var distX = bullet.destX - bullet.startX, distY = bullet.destY - bullet.startY;
 	
+	//faz a bala rodar ao redor de seu centro, e nao do canto superior esquerdo
+	bullet.anchor.setTo(0.5, 0.5);
 	//aponta para o destino
 	bullet.rotation = game.physics.arcade.angleToXY(bullet, bullet.destX, bullet.destY);
 	
