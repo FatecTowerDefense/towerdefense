@@ -18,7 +18,9 @@ var load_state = {
 
     // Carrega images sprites
     this.game.load.image('logo', '../../assets/logo/phaser.png');
-    this.game.load.image('bullet', '../../assets/sprites/bulletArrow.png');
+    this.game.load.image('arrow', '../../assets/sprites/bulletArrow.png');
+    this.game.load.image('arrow_fire', '../../assets/sprites/bulletArrow_Fire.png');
+    this.game.load.image('arrow_power', '../../assets/sprites/bulletArrow_Power.png');
     this.game.load.image('tower', '../../assets/sprites/tower1.png');
     this.game.load.image('tower2', '../../assets/sprites/tower1.png');
     this.game.load.image('tower3', '../../assets/sprites/tower2.png');

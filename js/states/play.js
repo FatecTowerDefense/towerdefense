@@ -223,9 +223,9 @@ var play_state = {
 			fireRate =  1500;
 			health =  1000;
 			imortal =  true;
-			bulletSpeed =  50;
+			bulletSpeed =  80;
 			price =  100;
-			bulletSprite = 'bullet';
+			bulletSprite = 'arrow_fire';
 
 			offsetX = 30;
 			offsetY = 20;
@@ -239,9 +239,9 @@ var play_state = {
       fireRate =  2500;
       health =  1000;
       imortal =  true;
-      bulletSpeed =  40;
+      bulletSpeed =  75;
       price =  300;
-      bulletSprite = 'bullet';
+      bulletSprite = 'arrow_power';
 			
 			offsetX = 30;
 			offsetY = 20;
@@ -255,9 +255,9 @@ var play_state = {
       fireRate =  500;
       health =  1000;
       imortal =  true;
-      bulletSpeed =  75;
+      bulletSpeed =  90;
       price =  150;
-      bulletSprite = 'bullet';
+      bulletSprite = 'arrow';
 			
 			offsetX = 30;
 			offsetY = 24;
