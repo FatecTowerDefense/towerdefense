@@ -31,6 +31,10 @@ var bgMusic;
 var sfxVictory;
 var sfxTower;
 
+//tilemap e layer que controla caminho e locais onde da pra construir
+var map;
+var layer;
+
 var play_state = {
   // TODO PRINCIPAL
   // - criar lista de monstros com sprite, forca, vida etc - hj hard coded
@@ -56,7 +60,7 @@ var play_state = {
     // Inicia a fisica do jogo
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     // Cria e aplica o tile map
-    var map = this.game.add.tilemap('jsonmap');
+    map = this.game.add.tilemap('jsonmap');
 		
 		//pega imagens do tileset: primeiro argumento eh o nome desse tileset no JSON;
 		//o segundo eh a chave da imagem do tileset, criada no preload
@@ -65,7 +69,8 @@ var play_state = {
 		//pega outra imagem do tileset, essa eh um tile gigante, que ocupa o mapa inteiro, pra mostrar o cenario
 		map.addTilesetImage('map1Img', 'map1Image');
 		//cria camadas definidas no JSON
-    var layer = map.createLayer('buildables'), imgLayer = map.createLayer('scenario');
+    layer = map.createLayer('buildables');
+    var imgLayer = map.createLayer('scenario');
 		
     layer.resizeWorld();
     // (antigo) caminho a ser percorrido pelos monstros
@@ -262,10 +267,18 @@ var play_state = {
       tower3.y = 660;
     }
     if (money >= price) {
-      new Tower(x, y, offsetX, offsetY, sprite, damage, range, fireRate, health, imortal, bulletSpeed, price, bulletSprite);
-      sfxTower.play();
+      var tileTarget = this.isTileBuildable(x, y, map, layer, 2, 3);
+      if(tileTarget !== null){
+        new Tower(tileTarget.worldX, tileTarget.worldY, offsetX, offsetY, sprite, damage, range, fireRate, health, imortal, bulletSpeed, price, bulletSprite);
+        sfxTower.play();
+      } else {
+        console.log('Não há espaço para construir essa torre!');
+      }
+      
+      
+      
     } else {
-      this.console.log('Você não possui dinheiro suficiente para comprar esta torre!');
+      console.log('Você não possui dinheiro suficiente para comprar esta torre!');
     }
   },
 
@@ -332,7 +345,7 @@ var play_state = {
 			for (xDetect = 0; xDetect < tilemap.width; xDetect++) {
 				var tile = tilemap.getTile(xDetect, yDetect, layer, true);
 				if (tile.index === 1) {
-					console.log("Base em " + xDetect + ", " + yDetect);
+					//console.log("Base em " + xDetect + ", " + yDetect);
 					pathArray.unshift({x : xDetect, y : yDetect});
 					break;
 				}
@@ -370,7 +383,7 @@ var play_state = {
 				pathArray.unshift({x : tileToAdd.x, y : tileToAdd.y});
 				oldTile = pathArray[1];
 			} else {
-				console.log("caminho calculado!");
+				//console.log("caminho calculado!");
 				return pathArray;
 			}
 
@@ -410,7 +423,135 @@ var play_state = {
 			}
 		}
 		
+	},
+	
+	
+	checkIndexDirectionRestricted : function (tilemap, layer, desiredIndex, tileX, tileY, previousX, previousY, horizontalCheck) {
+	  //restringe horizontal ou verticalmente a busca por tiles com indice desejado
+	  
+	  var tile;
+	  
+	  if(horizontalCheck){
+	    tile = tilemap.getTile(tileX + 1, tileY, layer, true);
+	    
+	    if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX + 1) || (previousY !== tileY))) {
+			  return tile;
+		  } else {
+		    tile = tilemap.getTile(tileX - 1, tileY, layer, true);
+		    
+		    if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX - 1) || (previousY !== tileY))) {
+					return tile;
+				} else {
+				  return null;
+				}
+		  }
+	    
+	  }else{
+	    
+	    //vertical entao
+	    
+	    tile = tilemap.getTile(tileX, tileY + 1, layer, true);
+	    
+			if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX) || (previousY !== tileY + 1))) {
+				return tile;
+			} else {
+			  
+			  tile = tilemap.getTile(tileX, tileY - 1, layer, true);
+				
+					if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX) || (previousY !== tileY - 1))) {
+						return tile;
+					} else {
+						return null;
+					}
+			}
+	    
+	  }
+	  
+	  
+	},
+	
+	
+	isTileBuildable : function (x, y, tileMap, layer, buildableIndex, unBuildableIndex) {
+	  
+	  //o tile sobre o qual o mouse esta
+	  var tile = tileMap.getTileWorldXY(x, y, 32, 32, layer);
+	  
+	  //indice do tile buildable no tileset = 2
+	  
+	  if(tile.index === buildableIndex) {
+	    
+	    var tileDoLado, tileVert;
+	    //bom, tem um tile onde da pra construir aqui
+	    //agora, a gente precisa ver se tem outros ao redor.
+	    //a gente precisa de uma area de 2x2 pra botar a torre
+	    
+	    //primeiro checando horizontalmente
+	    tileDoLado = this.checkIndexDirectionRestricted(tileMap, layer, buildableIndex, tile.x, tile.y, -20, -20, true);
+	    if(tileDoLado !== null){
+	      //legal, tem um tile onde da pra construir do lado
+	      //vamos checar vertical entao
+	      tileVert = this.checkIndexDirectionRestricted(tileMap, layer, buildableIndex, tile.x, tile.y, -20, -20, false);
+	      
+	      if(tileVert !== null){
+	        //tamo quase deixando construir essa torre, mas falta mais uma coisin:
+	        //precisamos do quarto espaco
+	        //pega o y do tilevert junto com o x do tiledolado pra ver se esse quarto eh buildable
+	        var quartoTile = tileMap.getTile(tileDoLado.x, tileVert.y, layer, true);
+	        
+	        if ((quartoTile) && (quartoTile.index === buildableIndex)) {
+	          //aeeee, constroi o baguio
+	          if(tileDoLado.x < tile.x){
+	            if(tileVert.y < tile.y){
+	              //marca todos os tiles usados por essa torre como inapropriados para construcao
+	              this.setIndex([tile, tileVert, tileDoLado, quartoTile], unBuildableIndex);
+	              return quartoTile;
+	            } else {
+	              //marca todos os tiles usados por essa torre como inapropriados para construcao
+	              this.setIndex([tile, tileVert, tileDoLado, quartoTile], unBuildableIndex);
+	              return tileDoLado;
+	            }
+	            
+	          } else {
+	            if(tileVert.y < tile.y) {
+	              //marca todos os tiles usados por essa torre como inapropriados para construcao
+	              this.setIndex([tile, tileVert, tileDoLado, quartoTile], unBuildableIndex);
+	              return tileVert;
+	            } else {
+	              //marca todos os tiles usados por essa torre como inapropriados para construcao
+	              this.setIndex([tile, tileVert, tileDoLado, quartoTile], unBuildableIndex);
+	              return tile;
+	            }
+	          }
+					} else {
+					  //fracassou
+					  return null;
+					}
+			
+	      } else {
+	        //apertado demais
+	        return null;
+	      }
+	    } else {
+	      //cancela essa construcao, nao tem espaco horizontal onde foi especificado
+	      return null;
+	    }
+	    
+	    
+	    
+	  } else {
+	    return null;
+	  }
+	    
+	    
+	},
+	
+	
+	setIndex : function (tilesArray, desiredIndex){
+	  for(var i = 0; i < tilesArray.length; i++) {
+	    tilesArray[i].index = desiredIndex;
+	  }
 	}
+	
 	
 
 };
