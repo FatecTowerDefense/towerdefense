@@ -26,7 +26,7 @@ var load_state = {
     this.game.load.image('tower3', '../../assets/sprites/tower2.png');
     this.game.load.image('village', '../../assets/sprites/village.png');
     this.game.load.spritesheet('start', '../../assets/sprites/startsprite.png', 481, 193, 2);
-    this.game.load.spritesheet('person', '../../assets/sprites/person.png', 32, 32, 4);
+    this.game.load.spritesheet('person', '../../assets/sprites/curupira.png', 32, 32, 14);
 
     // Carrega o tilemap - json e imagem
     this.game.load.tilemap('jsonmap', '../../assets/tilemaps/fase1Teste.json', null, Phaser.Tilemap.TILED_JSON);
