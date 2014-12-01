@@ -36,6 +36,7 @@ Village.prototype.damageTaken = function (village, monster) {
   var damTaken = village.health / village.totalHealth;
   //village.lifeBarStatus.x = village.x + (village.width / 2);
   village.lifeBarStatus.x = village.x + (village.width / 2) - (tilePath[tilePath.length - 2].x * tileSize);
+  console.log(village.x);
   village.lifeBarStatus.scale.x = damTaken;
 
   if (village.health <= 0) {

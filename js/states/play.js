@@ -144,38 +144,48 @@ var play_state = {
 
     // Desenha os botes de adicionar torre
     // Torre Tipo 1
-    this.game.add.sprite(96, 660, 'tower');
-    tower1 = this.game.add.sprite(96, 660, 'tower');
+    this.game.add.sprite(55, 672, 'tower');
+    tower1 = this.game.add.sprite(55, 672, 'tower');
     tower1.inputEnabled = true;
     tower1.input.enableDrag();
     tower1.input.enableSnap(32, 32, true, true);
     tower1.events.onDragStop.add(this.onDragStop, this);
     // texto da torre
-    text = "Tower 1 \n $100 \n Constant ";
+    text = "Constant ";
     style = { font: "11px Arial", fill: "#FFFFFF", align: "center" };
-    this.game.add.text(88, 694, text, style);
+    var style2 = { font: "16px Arial", fill: "#FFFFFF", align: "center" };
+    this.game.add.text(64, 654, text, style);
+
+    text = "$100 \n 10";
+    this.game.add.text(112, 690, text, style2);
 
     // Torre Tipo 2
-    this.game.add.sprite(160, 660, 'tower2');
-    tower2 = this.game.add.sprite(160, 660, 'tower2');
+    this.game.add.sprite(160, 672, 'tower2');
+    tower2 = this.game.add.sprite(160, 672, 'tower2');
     tower2.inputEnabled = true;
     tower2.input.enableDrag();
     tower2.input.enableSnap(32, 32, true, true);
     tower2.events.onDragStop.add(this.onDragStop, this);
     // texto da torre
-    text = "Tower 2 \n $300 \n Power";
-    this.game.add.text(152, 694, text, style);
+    text = "Power";
+    this.game.add.text(178, 654, text, style);
+    
+    text = "$300 \n 10";
+    this.game.add.text(217, 690, text, style2);
 
     // Torre Tipo 3
-    this.game.add.sprite(224, 660, 'tower3');
-    tower3 = this.game.add.sprite(224, 660, 'tower3');
+    this.game.add.sprite(256, 672, 'tower3');
+    tower3 = this.game.add.sprite(256, 672, 'tower3');
     tower3.inputEnabled = true;
     tower3.input.enableDrag();
     tower3.input.enableSnap(32, 32, true, true);
     tower3.events.onDragStop.add(this.onDragStop, this);
     // texto da torre
-    text = "Tower 3 \n $150 \n Rapid Fire ";
-    this.game.add.text(216, 694, text, style);
+    text = "Rapid Fire";
+    this.game.add.text(265, 654, text, style);
+    
+    text = "$150 \n 10";
+    this.game.add.text(310, 690, text, style2);
     
     // Música de fundo da fase
     bgMusic = this.game.add.audio('level1');
@@ -230,8 +240,8 @@ var play_state = {
 			offsetX = 30;
 			offsetY = 20;
 
-			tower1.x = 96;
-			tower1.y = 660;
+			tower1.x = 55;
+			tower1.y = 672;
     } else if (sprite.key === 'tower2') {
       sprite = 'tower2';
       damage =  300;
@@ -247,7 +257,7 @@ var play_state = {
 			offsetY = 20;
 			
       tower2.x = 160;
-      tower2.y = 660;
+      tower2.y = 672;
     } else if (sprite.key === 'tower3') {
       sprite = 'tower3';
       damage =  15;
@@ -262,8 +272,8 @@ var play_state = {
 			offsetX = 30;
 			offsetY = 24;
 			
-      tower3.x = 224;
-      tower3.y = 660;
+      tower3.x = 256;
+      tower3.y = 672;
     }
     if (money >= price) {
       var tileTarget = this.isTileBuildable(x, y, map, layer, 2, 3);
