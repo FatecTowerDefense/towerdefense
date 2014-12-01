@@ -9,10 +9,10 @@ var Monster = function (xTile, yTile, sprite, spriteLength, speed, damage, healt
   this.monster.xTile = xTile;
   this.monster.yTile = yTile;
   // Adiciona animacao de andar em relacao ao sprite adicionado
-  this.monster.animations.add('runRight', [0,1,2], 4, true);
-  this.monster.animations.add('runLeft', [3,4,5], 4, true);
-  this.monster.animations.add('runDown', [6,7,8], 4, true);
-  this.monster.animations.add('runUp', [9,10,11], 4, true);
+  this.monster.animations.add('runRight', [0,1,2], 5, true);
+  this.monster.animations.add('runLeft', [3,4,5], 5, true);
+  this.monster.animations.add('runDown', [6,7,8], 5, true);
+  this.monster.animations.add('runUp', [9,10,11], 5, true);
   this.monster.animations.add('dieRight', [12], 1, false);
   this.monster.animations.add('dieLeft', [13], 1, false);
   //this.monster.animations.play('runRight');
@@ -57,19 +57,34 @@ Monster.prototype.move = function (monster) {
 
   if (monster.speedX > 0 && monster.x >= monster.nextPosX) {
     monster.x = monster.nextPosX;
-    monster.animations.play('runRight');
+    /*if(monster.animations.currentAnim.name != 'runRight'){
+      console.log('ayayayay');
+      monster.animations.stop();
+      monster.animations.frame = 0;
+    }*/
+    
+    //monster.animations.play('runRight');
     Monster.prototype.nextMove(monster);
   } else if (monster.speedX < 0 && monster.x <= monster.nextPosX) {
     monster.x = monster.nextPosX;
-    monster.animations.play('runLeft');
+    //if(monster.animations.currentAnim.name != 'runLeft')
+    //monster.animations.stop();
+    //monster.animations.play('runLeft');
     Monster.prototype.nextMove(monster);
   } else if (monster.speedY > 0 && monster.y >= monster.nextPosY) {
     monster.y = monster.nextPosY;
-    monster.animations.play('runDown');
+    /*if(monster.animations.currentAnim.name != 'runDown'){
+
+      monster.animations.stop();
+      console.log('ayayayay');
+    }*/
+   // monster.animations.play('runDown');
     Monster.prototype.nextMove(monster);
   } else if (monster.speedY < 0 && monster.y <= monster.nextPosY) {
     monster.y = monster.nextPosY;
-    monster.animations.play('runUp');
+    //if(monster.animations.currentAnim.name != 'runUp')
+    //monster.animations.stop();
+    //monster.animations.play('runUp');
     Monster.prototype.nextMove(monster);
   }
 
@@ -95,22 +110,23 @@ Monster.prototype.nextMove = function (monster) {
   if (monster.nextPosX > monster.x) {
     monster.speedX = monster.speed;
     
-    
+    monster.animations.play('runRight');
     //monster.angle = 0;
   } else if (monster.nextPosX < monster.x) {
     monster.speedX = -monster.speed;
-    
+    monster.animations.play('runLeft');
     //monster.angle = 180;
   } else {
     monster.speedX = 0;
   }
   if (monster.nextPosY > monster.y) {
     monster.speedY = monster.speed;
+    monster.animations.play('runDown');
     
     //monster.angle = 90;
   } else if (monster.nextPosY < monster.y) {
     monster.speedY = -monster.speed;
-    
+    monster.animations.play('runUp');
     //monster.angle = -90;
   } else {
     monster.speedY = 0;
@@ -120,7 +136,8 @@ Monster.prototype.nextMove = function (monster) {
 Monster.prototype.death = function (monster) {
   if (monster.health <= 0) {
     // destroi a sprite de monstro
-    monster.animations.play('dieLeft')
+    //monster.animations.stop();
+    //monster.animations.play('dieLeft', false, true);
     monsters.remove(monster);
     monster.destroy();
     // remove a barra de vida do monstro
