@@ -27,6 +27,8 @@ var Village = function (sprite, health) {
 };
 
 Village.prototype.damageTaken = function (village, monster) {
+  var sfxDamage = game.add.audio('baseAttacked');
+  sfxDamage.play();
   village.health -= monster.damage;
   monster.kill();
   monster.lifeBarStatus.destroy();

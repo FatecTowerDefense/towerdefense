@@ -52,6 +52,8 @@ Tower.prototype.attack = function (tower) {
 };
 
 Tower.prototype.fire = function (tower, monster) {
+  var sfxFire = game.add.audio('towerFire');
+  sfxFire.play();
   //Bullet = function (startX, startY, destX, destY, speed, damage, shooter, sprite)
   new Bullet(tower.x + tower.fireOffsetX, tower.y + tower.fireOffsetY, monster.x, monster.y, tower.bulletSpeed, tower.damage, tower, tower.bulletSprite);
 };

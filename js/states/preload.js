@@ -37,6 +37,8 @@ var load_state = {
     this.game.load.audio('victory', '../../assets/audio/victory.ogg', '../../assets/audio/victory.mp3');
     this.game.load.audio('gameover', '../../assets/audio/gameover.ogg', '../../assets/audio/gameover.mp3');
     this.game.load.audio('towerCreated', '../../assets/audio/towerCreated.ogg', '../../assets/audio/towerCreated.mp3');
+    this.game.load.audio('baseAttacked', '../../assets/audio/baseAttacked.ogg', '../../assets/audio/baseAttacked.mp3');
+    this.game.load.audio('towerFire', '../../assets/audio/hit.ogg', '../../assets/audio/hit.mp3');
     
     // Carrega os arquivos de BGM do jogo
     this.game.load.audio('level1', '../../assets/audio/level1.ogg', '../../assets/audio/victory.mp3');
@@ -55,7 +57,9 @@ var load_state = {
         this.cache.isSoundDecoded('gameover') &&
         this.cache.isSoundDecoded('towerCreated') &&
         this.cache.isSoundDecoded('victory') &&
-        this.cache.isSoundDecoded('level1'))
+        this.cache.isSoundDecoded('level1') &&
+        this.cache.isSoundDecoded('baseAttacked') &&
+        this.cache.isSoundDecoded('towerFire'))
     {
       if (this.ready) {
         this.game.state.start('menu');
