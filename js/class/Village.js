@@ -14,15 +14,10 @@ var Village = function (sprite, health) {
   // Desenha um retângulo cheio sobre a vila
   this.village.lifeBar = game.add.graphics(0, 0); // inicia o retangulo
   this.village.lifeBar.lineStyle(2, 0x000000, 1); // largura, cor, alfa
-  this.village.lifeBar.beginFill(0xFFFF00, 0.8); // cor, alfa
-  this.village.lifeBar.drawRect(this.village.x, this.village.y + this.village.height, this.village.width, 5); // x, y, largura, altura
+  this.village.lifeBar.beginFill(0x00FF00, 0.8); // cor, alfa
+  this.village.lifeBar.drawRect(this.village.x - 30, this.village.y + this.village.height, this.village.width, 5); // x, y, largura, altura
 
-  // Desenha um retângulo de vida sobre a vila
-  this.village.lifeBarStatus = game.add.graphics(0, 0); // inicia o retangulo
-  this.village.lifeBarStatus.lineStyle(2, 0x000000, 0); // largura, cor, alfa
-  this.village.lifeBarStatus.beginFill(0x00FF00, 0.9); // cor, alfa
-  this.village.lifeBarStatus.drawRect(this.village.x, this.village.y + this.village.height, this.village.width, 5); // x, y, largura, altura
-  this.village.lifeBarStatus.enableBody = true;
+
 
 };
 
@@ -36,10 +31,14 @@ Village.prototype.damageTaken = function (village, monster) {
 
   // Calcula o dano tomado - escala e posiciona a barra de vida atual
   var damTaken = village.health / village.totalHealth;
-  //village.lifeBarStatus.x = village.x + (village.width / 2);
-  village.lifeBarStatus.x = village.x + (village.width / 2) - (tilePath[tilePath.length - 2].x * tileSize);
-  console.log(village.x);
-  village.lifeBarStatus.scale.x = damTaken;
+  var largura = village.width * (1 - damTaken);
+  
+  // Desenha um retângulo de vida tomada sobre a vila
+  village.lifeBarStatus = game.add.graphics(0, 0); // inicia o retangulo
+  village.lifeBarStatus.lineStyle(2, 0x000000, 0); // largura, cor, alfa
+  village.lifeBarStatus.beginFill(0xFFFF00, 0.9); // cor, alfa
+  village.lifeBarStatus.drawRect(village.x - 30, village.y + village.height, largura, 5); // x, y, largura, altura
+  village.lifeBarStatus.enableBody = true;
 
   if (village.health <= 0) {
     Village.prototype.death(village);
