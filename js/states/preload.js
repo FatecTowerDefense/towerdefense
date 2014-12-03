@@ -26,6 +26,8 @@ var load_state = {
     this.game.load.image('tower3', '../../assets/sprites/tower2.png');
     this.game.load.image('village', '../../assets/sprites/village.png');
     this.game.load.spritesheet('start', '../../assets/sprites/startsprite.png', 481, 193, 2);
+    this.game.load.spritesheet('play', '../../assets/sprites/playbuttonprite.png', 256, 161, 2);
+    this.game.load.spritesheet('credit', '../../assets/sprites/creditbuttonprite.png', 114, 96, 2);
     this.game.load.spritesheet('person', '../../assets/sprites/curupira.png', 32, 32, 14);
 
     // Carrega o tilemap - json e imagem

@@ -45,12 +45,8 @@ var play_state = {
   // - tela de derrota - hj inexistente
   // - reset do jogo completo com limpeza dos sprites e variaveis - hj limpa tela e volta para menu
   // - ajustar o preloader - hj com gif circular e nao barra
-  // - criar validacao de posicionamento de novas torres - checar se nao e caminho e se ja nao existe uma torre la -- lista com esses pontos
   // - criar dentro do estado de play os estados de inclusao de torre e de ondas - trabalhar com o tempo de onda - hj inexistente
-  // - criar sistema de upgrade para torres // acredito que remover a torre atual e aplicar uma nova com as novas prorpiedades seja o melhor - hj inexistente
-  // - criar sistema de caixa de selecao para o upgrade das torres - hj inexistente
   // - criar textos de contador de tempo para proxima onda - hj inexistente
-  // - melhorar AI da torre - hj ataca o primeiro no range
   // - ajuste de performance - destruir objetos ao inves de os limpar da tela
   // - Polimento do jogo e ajuste de classes para facilitar manutencao
   // - Caso tudo seja atingido verificar de utilizar pathfinding a star ao inves de mapear o caminho manualmente
@@ -116,7 +112,7 @@ var play_state = {
     shape.endFill();
 
     // Adiciona botao de iniciar para iniciar a onda
-    this.startWaveButton = this.game.add.button(550, this.game.height-50, 'start', this.newWave, this, 1, 0, 1);
+    this.startWaveButton = this.game.add.button(555, this.game.height-50, 'play', this.newWave, this, 1, 0, 1);
     this.startWaveButton.scale.set(0.3);
     this.startWaveButton.anchor.setTo(0.5, 0.5);
     this.startWaveButton.inputEnabled = true;

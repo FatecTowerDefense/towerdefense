@@ -29,8 +29,8 @@ var menu_state = {
     this.startButton.x = 300;
     this.startButton.y = 300;
 
-    this.creditButton.x = 300;
-    this.creditButton.y = 400;
+    this.creditButton.x = 230;
+    this.creditButton.y = 450;
   },
 
   setStartButton: function () {
@@ -38,8 +38,8 @@ var menu_state = {
     var x = this.game.world.width / 2 - 20;
     var y = this.game.world.height / 2;
     // Adiciona o botao de iniciar
-    this.startButton = this.game.add.button(x, y, 'start', this.start, this, 1, 0, 1);
-    this.startButton.scale.set(0.3);
+    this.startButton = this.game.add.button(x, y, 'play', this.start, this, 1, 0, 1);
+    this.startButton.scale.set(1);
     this.startButton.anchor.setTo(0.5, 0.5);
     this.startButton.inputEnabled = true;
     this.startButton.input.useHandCursor = true;
@@ -47,11 +47,11 @@ var menu_state = {
 
   setCreditButton: function () {
     // Define variaveis de posicao
-    var x = this.game.world.width / 2 - 20;
-    var y = this.game.world.height / 2 + 100;
+    var x = 100;
+    var y = 600;
     // Adiciona o botao de iniciar
-    this.creditButton = this.game.add.button(x, y, 'start', this.credit, this, 1, 0, 1);
-    this.creditButton.scale.set(0.3);
+    this.creditButton = this.game.add.button(x, y, 'credit', this.credit, this, 1, 0, 1);
+    this.creditButton.scale.set(1);
     this.creditButton.anchor.setTo(0.5, 0.5);
     this.creditButton.inputEnabled = true;
     this.creditButton.input.useHandCursor = true;
