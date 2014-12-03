@@ -3,12 +3,13 @@ var mutado = false;
 var menu_state = {
   create: function () {
     if (menuMusic === null) {
-      menuMusic = game.add.audio('menu');
+      menuMusic = this.add.audio('menu');
     }
     if (!menuMusic.isPlaying) {
       menuMusic.play('', 0, 1, true);
     }
     // Adiciona o botao de iniciar
+    this.add.sprite(0, 0, 'aldeiaDestruida');
     this.setStartButton();
     this.setCreditButton();
     this.setMuteButton();
