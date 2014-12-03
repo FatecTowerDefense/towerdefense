@@ -45,8 +45,20 @@ Village.prototype.damageTaken = function (village, monster) {
   }
 };
 
+Village.prototype.fechar = function () {
+    game.state.start('menu');
+};
+
+
+Village.prototype.retornar = function () {
+    game.state.start('play');
+};
+ 
 Village.prototype.death = function (village) {
+  
+  
   if (village.health <= 0) {
+    
     village.lifeBar.destroy();
     village.lifeBarStatus.destroy();
     village.kill();
@@ -56,10 +68,32 @@ Village.prototype.death = function (village) {
 
     // Cria textos de perda
     // coloca fundo e placa
-    game.add.sprite(100, 100, 'aldeiaDestruida');
-    game.add.sprite(100, 100, 'aldeiaDestruidaPlaca');
-    var styleDeath = { font: "28px Arial", fill: "#FF0000", align: "center" };
-    game.add.text(200, 250, "Sua vila foi destrúida!", styleDeath);
+    game.add.sprite(0, 0, 'aldeiaDestruida');
+    game.add.sprite(50, 0, 'aldeiaDestruidaPlaca');
+    
+    // adiciona os botoes
+    // botoes de fechar
+    var x = 230;
+    var y = 250;
+    //game.fecharButton = game.add.button(x, y, 'fechar', game.state.start('menu'), game, 1, 0, 1);
+    game.fecharButton = game.add.button(x, y, 'fechar', this.fechar, game, 1, 0, 1);
+    game.fecharButton.scale.set(1);
+    game.fecharButton.anchor.setTo(0.5, 0.5);
+    game.fecharButton.inputEnabled = true;
+    game.fecharButton.input.useHandCursor = true;
+    // botoes de voltar
+    x = 370;
+    y = 250;
+    // Adiciona o botao de iniciar
+    //game.retornarButton = game.add.button(x, y, 'retornar', game.state.start('menu'), game, 1, 0, 1);
+    game.retornarButton = game.add.button(x, y, 'retornar', this.retornar, game, 1, 0, 1);
+    game.retornarButton.scale.set(1);
+    game.retornarButton.anchor.setTo(0.5, 0.5);
+    game.retornarButton.inputEnabled = true;
+    game.retornarButton.input.useHandCursor = true;
+    
+    //var styleDeath = { font: "28px Arial", fill: "#FF0000", align: "center" };
+    //game.add.text(200, 250, "Sua vila foi destrúida!", styleDeath);
     var sfxGameOver = game.add.audio('gameover');
     sfxGameOver.play();
     if (bgMusic.isPlaying) {
