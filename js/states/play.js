@@ -34,6 +34,7 @@ var sfxTower;
 //tilemap e layer que controla caminho e locais onde da pra construir
 var map;
 var layer;
+var fundoSprite;
 
 var play_state = {
   // TODO PRINCIPAL
@@ -63,10 +64,13 @@ var play_state = {
     map.addTilesetImage('tileSet', 'tilesmap');
 		
 		//pega outra imagem do tileset, essa eh um tile gigante, que ocupa o mapa inteiro, pra mostrar o cenario
-		map.addTilesetImage('map1Img', 'map1Image');
+		//map.addTilesetImage('map1Img', 'map1Image');
 		//cria camadas definidas no JSON
     layer = map.createLayer('buildables');
-    var imgLayer = map.createLayer('scenario');
+    //var imgLayer = map.createLayer('scenario');
+    
+    fundoSprite = this.game.add.sprite(0,0, 'map1Image');
+    
 		
     layer.resizeWorld();
     // (antigo) caminho a ser percorrido pelos monstros
@@ -120,8 +124,9 @@ var play_state = {
 
     // Adiciona botao de voltar ao menu
     // TODO - remover os objetos e limpar dados antes de voltar
-    this.stopButton = this.game.add.button(50, 50, 'fechar', this.restartGame, this, 1, 0, 1);
-    this.stopButton.scale.set(0.6);
+    this.stopButton = this.game.add.button(100, 50, 'start', this.restartGame, this, 1, 0, 1);
+    this.stopButton.scale.set(0.3);
+    this.stopButton.tint = 0xff00ff;
     this.stopButton.anchor.setTo(0.5, 0.5);
     this.stopButton.inputEnabled = true;
     this.stopButton.input.useHandCursor = true;
@@ -315,15 +320,48 @@ var play_state = {
   },
 
   newWave: function () {
+    var waveContent;
+    if(levelCurrent > 0){
+      waveContent = [{sprite: 'curupira', amount: 3 + waveCurrent * levelCurrent}, {sprite: 'corposeco', amount: 2 + waveCurrent * levelCurrent}];
+      
+      
+    }else{
+      waveContent = [{sprite: 'curupira', amount: 3 + waveCurrent}];
+
+    }
+    
     // cria uma nova onda
-    // formato de envio dos monstros da onda: [{sprite:'curupira', amount:3},{sprite:'person', amount:3}]
+    // formato de envio dos monstros da onda: [{sprite:'person', amount:3},{sprite:'person', amount:3}]
     // Pode intercalar e repetir monstros e sequencias
     // Ele deixa um espaço vazio entre cada item da onda
     waveCurrent++;
-    new Wave([{sprite: 'curupira', amount: 3}, {sprite: 'corposeco', amount: 2}], 500, 800, 250);
+    console.log('wave');
+    new Wave(waveContent, 5000, 1000, 250);
     if (waveCurrent > 3) {
       waveCurrent = 1;
       levelCurrent++;
+      switch (levelCurrent) {
+        case  1:
+          fundoSprite.loadTexture('map2Image');
+          console.log('mudou nivel, mudou fundo');
+          break;
+          
+        case 2:
+          fundoSprite.loadTexture('map3Image');
+          console.log('mudou nivel, mudou fundo');
+          break;
+          
+        case 3:
+          fundoSprite.loadTexture('aldeiaDefendida');
+          console.log('ganhoooooo');
+          break;
+        
+        default:
+          console.log('eu nao devia aparecer');
+          break;
+      }
+      
+      
     }
     // levelTextLevel.setText("Level: " + levelCurrent + " \nWave: " + waveCurrent);
   },

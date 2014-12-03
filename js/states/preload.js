@@ -44,6 +44,8 @@ var load_state = {
     this.game.load.tilemap('jsonmap', '../../assets/tilemaps/fase1Teste.json', null, Phaser.Tilemap.TILED_JSON);
     this.game.load.image('tilesmap', '../../assets/tilemaps/tileSet.png');
 		this.game.load.image('map1Image', '../../assets/tilemaps/mapa_1Art.png');
+		this.game.load.image('map2Image', '../../assets/tilemaps/mapa_2Art.png');
+		this.game.load.image('map3Image', '../../assets/tilemaps/mapa_3Art.png');
     
     // Carrega os arquivos de SFX do jogo
     this.game.load.audio('victory', '../../assets/audio/victory.ogg', '../../assets/audio/victory.mp3');
