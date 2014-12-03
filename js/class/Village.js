@@ -1,4 +1,4 @@
-/*globals game, tilePath, tileSize, villages, monstersBlock  */
+/*globals game, tilePath, tileSize, villages, monstersBlock, bgMusic  */
 var Village = function (sprite, health) {
   // verifica o ponto final do caminho
   var xTile = tilePath[tilePath.length - 2].x;
@@ -55,6 +55,9 @@ Village.prototype.death = function (village) {
     clearTimeout(monstersBlock);
 
     // Cria textos de perda
+    // coloca fundo e placa
+    game.add.sprite(100, 100, 'aldeiaDestruida');
+    game.add.sprite(100, 100, 'aldeiaDestruidaPlaca');
     var styleDeath = { font: "28px Arial", fill: "#FF0000", align: "center" };
     game.add.text(200, 250, "Sua vila foi destrúida!", styleDeath);
     var sfxGameOver = game.add.audio('gameover');
@@ -62,13 +65,14 @@ Village.prototype.death = function (village) {
     if (bgMusic.isPlaying) {
      bgMusic.stop(); 
     }
+    
 
     // espera 5 segundos e joga para o menu
-    setTimeout(function () {
+    /*setTimeout(function () {
       if (sfxGameOver.isPlaying)
         sfxGameOver.stop();
       this.game.state.start('menu');
-    }, 5000);
+    }, 5000);*/
 
   }
 };

@@ -120,9 +120,8 @@ var play_state = {
 
     // Adiciona botao de voltar ao menu
     // TODO - remover os objetos e limpar dados antes de voltar
-    this.stopButton = this.game.add.button(100, 50, 'start', this.restartGame, this, 1, 0, 1);
-    this.stopButton.scale.set(0.3);
-    this.stopButton.tint = 0xff00ff;
+    this.stopButton = this.game.add.button(50, 50, 'fechar', this.restartGame, this, 1, 0, 1);
+    this.stopButton.scale.set(0.6);
     this.stopButton.anchor.setTo(0.5, 0.5);
     this.stopButton.inputEnabled = true;
     this.stopButton.input.useHandCursor = true;
@@ -317,11 +316,11 @@ var play_state = {
 
   newWave: function () {
     // cria uma nova onda
-    // formato de envio dos monstros da onda: [{sprite:'person', amount:3},{sprite:'person', amount:3}]
+    // formato de envio dos monstros da onda: [{sprite:'curupira', amount:3},{sprite:'person', amount:3}]
     // Pode intercalar e repetir monstros e sequencias
     // Ele deixa um espaço vazio entre cada item da onda
     waveCurrent++;
-    new Wave([{sprite: 'curupira', amount: 3}, {sprite: 'corposeco', amount: 2}], 5000, 1000, 250);
+    new Wave([{sprite: 'curupira', amount: 3}, {sprite: 'corposeco', amount: 2}], 500, 800, 250);
     if (waveCurrent > 3) {
       waveCurrent = 1;
       levelCurrent++;

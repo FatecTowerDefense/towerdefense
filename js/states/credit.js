@@ -23,7 +23,7 @@ var credit_state = {
 
   setMenuButton: function () {
     // Adiciona o botao de voltar para menu
-    this.startButton = this.game.add.button(650, 50, 'start', this.menu, this, 1, 0, 1);
+    this.startButton = this.game.add.button(650, 50, 'fechar', this.menu, this, 1, 0, 1);
     this.startButton.scale.set(0.3);
     this.startButton.anchor.setTo(0.5, 0.5);
     this.startButton.inputEnabled = true;

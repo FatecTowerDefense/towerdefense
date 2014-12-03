@@ -25,6 +25,10 @@ var load_state = {
     this.game.load.image('tower2', '../../assets/sprites/tower1.png');
     this.game.load.image('tower3', '../../assets/sprites/tower2.png');
     this.game.load.image('village', '../../assets/sprites/village.png');
+    this.game.load.image('aldeiaDefendidaPlaca', '../../assets/sprites/aldeiaDefendidaPlaca.png');
+    this.game.load.image('aldeiaDestruidaPlaca', '../../assets/sprites/aldeiaDestruidaPlaca.png');
+    this.game.load.image('aldeiaDefendida', '../../assets/sprites/aldeiaDefendida.png');
+    this.game.load.image('aldeiaDestruida', '../../assets/sprites/aldeiaDefendida.png');
     this.game.load.spritesheet('start', '../../assets/sprites/startsprite.png', 481, 193, 2);
     this.game.load.spritesheet('play', '../../assets/sprites/playbuttonprite.png', 256, 161, 2);
     this.game.load.spritesheet('credit', '../../assets/sprites/creditbuttonprite.png', 114, 96, 2);
@@ -32,6 +36,9 @@ var load_state = {
     this.game.load.spritesheet('corposeco', '../../assets/sprites/corposeco.png', 32, 32, 14);
     this.game.load.spritesheet('music', '../../assets/sprites/musicbuttonsprite.png', 114, 96, 2);
     this.game.load.spritesheet('mute', '../../assets/sprites/mutebuttonsprite.png', 114, 96, 2);
+    this.game.load.spritesheet('fechar', '../../assets/sprites/fecharbuttonsprite.png', 128, 95, 2);
+    this.game.load.spritesheet('retornar', '../../assets/sprites/retornarbuttonsprite.png', 128, 95, 2);
+    this.game.load.spritesheet('avancar', '../../assets/sprites/avancarbuttonsprite.png', 128, 95, 2);
 
     // Carrega o tilemap - json e imagem
     this.game.load.tilemap('jsonmap', '../../assets/tilemaps/fase1Teste.json', null, Phaser.Tilemap.TILED_JSON);
