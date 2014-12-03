@@ -29,6 +29,8 @@ var load_state = {
     this.game.load.spritesheet('play', '../../assets/sprites/playbuttonprite.png', 256, 161, 2);
     this.game.load.spritesheet('credit', '../../assets/sprites/creditbuttonprite.png', 114, 96, 2);
     this.game.load.spritesheet('person', '../../assets/sprites/curupira.png', 32, 32, 14);
+    this.game.load.spritesheet('music', '../../assets/sprites/musicbuttonsprite.png', 114, 96, 2);
+    this.game.load.spritesheet('mute', '../../assets/sprites/mutebuttonsprite.png', 114, 96, 2);
 
     // Carrega o tilemap - json e imagem
     this.game.load.tilemap('jsonmap', '../../assets/tilemaps/fase1Teste.json', null, Phaser.Tilemap.TILED_JSON);
