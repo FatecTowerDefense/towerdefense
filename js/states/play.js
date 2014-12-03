@@ -321,7 +321,7 @@ var play_state = {
     // Pode intercalar e repetir monstros e sequencias
     // Ele deixa um espaço vazio entre cada item da onda
     waveCurrent++;
-    new Wave([{sprite: 'person', amount: 3}, {sprite: 'person', amount: 2}], 5000, 1000, 250);
+    new Wave([{sprite: 'curupira', amount: 3}, {sprite: 'corposeco', amount: 2}], 5000, 1000, 250);
     if (waveCurrent > 3) {
       waveCurrent = 1;
       levelCurrent++;
