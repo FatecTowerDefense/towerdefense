@@ -36,6 +36,9 @@ var map;
 var layer;
 var fundoSprite;
 
+var bambuDireita;
+var bambuEsquerda;
+
 var muteX = 130;
 
 var monsterProps;
@@ -226,10 +229,19 @@ var play_state = {
       clearTimeout(waveStartTime);
     }
           
+    // cortina de bambu
+    
+    bambuDireita = this.game.add.sprite(320,0, 'bambu');
+    bambuDireita.scale.set(1);
+    bambuEsquerda = this.game.add.sprite(-320,0,'bambu');
+    bambuEsquerda.scale.set(1);
 
   },
 
   update: function () {
+    // Abre as cortinas
+    this.abreCortinas();
+    
     // Verifica se ha monstros para iniciar proxima onda
     this.checkWaveEnd();
 
@@ -261,6 +273,11 @@ var play_state = {
       }
   },
 
+  abreCortinas: function () {
+    bambuEsquerda.x -=2;
+    bambuDireita.x +=2;
+  },
+  
   onDragStop: function (sprite, pointer) {
     // TODO - checar se pode adicionar o sprite na posicao
     var x = pointer.x;
