@@ -34,6 +34,8 @@ var load_state = {
     this.game.load.spritesheet('credit', '../../assets/sprites/creditbuttonprite.png', 114, 96, 2);
     this.game.load.spritesheet('curupira', '../../assets/sprites/curupira.png', 32, 32, 14);
     this.game.load.spritesheet('corposeco', '../../assets/sprites/corposeco.png', 32, 32, 14);
+    this.game.load.spritesheet('saci', '../../assets/sprites/Saci.png', 32, 32, 22);
+    this.game.load.spritesheet('mula', '../../assets/sprites/mula64.png', 64, 64, 19);
     this.game.load.spritesheet('music', '../../assets/sprites/musicbuttonsprite.png', 114, 96, 2);
     this.game.load.spritesheet('mute', '../../assets/sprites/mutebuttonsprite.png', 114, 96, 2);
     this.game.load.spritesheet('fechar', '../../assets/sprites/fecharbuttonsprite.png', 128, 95, 2);
