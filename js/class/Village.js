@@ -1,4 +1,4 @@
-/*globals game, tilePath, tileSize, villages, monstersBlock, bgMusic, waveMonsters  */
+/*globals game, tilePath, tileSize, villages, monstersBlock, bgMusic, waveMonsters, monsters  */
 var Village = function (sprite, health) {
   // verifica o ponto final do caminho
   var xTile = tilePath[tilePath.length - 2].x;
@@ -25,6 +25,7 @@ Village.prototype.damageTaken = function (village, monster) {
   var sfxDamage = game.add.audio('baseAttacked');
   sfxDamage.play();
   village.health -= monster.damage;
+  monsters.remove(monster);
   monster.kill();
   monster.lifeBarStatus.destroy();
   monster.lifeBar.destroy();
@@ -65,6 +66,7 @@ Village.prototype.death = function (village) {
     village.kill();
     // limpa a tela
     game.world.removeAll();
+    monsters.destroy();
     clearTimeout(monstersBlock);
 
     // Cria textos de perda
