@@ -274,8 +274,10 @@ var play_state = {
   },
 
   abreCortinas: function () {
-    bambuEsquerda.x -=2;
-    bambuDireita.x +=2;
+    if (bambuDireita.x < 780) {
+      bambuEsquerda.x -=2;
+      bambuDireita.x +=2;
+    }
   },
   
   onDragStop: function (sprite, pointer) {
