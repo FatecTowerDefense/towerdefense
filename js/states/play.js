@@ -42,12 +42,8 @@ var monsterProps;
 
 var play_state = {
   // TODO PRINCIPAL
-  // - criar lista de monstros com sprite, forca, vida etc - hj hard coded
-  // - criar lista de niveis com detalhes das ondas - hj unico
   // - levar para classe propria a leitura do tileMap para simplificar o uso de varios mapas - hj unico
-  // - condicao de vitoria do jogo // hj infinito
   // - splash screen - hj inexistente
-  // - tela de derrota - hj inexistente
   // - reset do jogo completo com limpeza dos sprites e variaveis - hj limpa tela e volta para menu
   // - ajustar o preloader - hj com gif circular e nao barra
   // - criar dentro do estado de play os estados de inclusao de torre e de ondas - trabalhar com o tempo de onda - hj inexistente
