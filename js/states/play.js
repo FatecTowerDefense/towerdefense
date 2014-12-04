@@ -5,8 +5,8 @@
 // Tamanho do tile
 var tileSize = 32;
 // Inicia onda - level - pontuacao - qtdade de monstros
-var waveCurrent = 2;
-var levelCurrent = 2;
+var waveCurrent = 0;
+var levelCurrent = 0;
 var waveMonsters = 0;
 var score = 0;
 // define dinheiro inicial do jogador
