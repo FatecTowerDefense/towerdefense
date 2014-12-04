@@ -17,7 +17,6 @@ var load_state = {
     this.game.stage.backgroundColor = '#222222';
 
     // Carrega images sprites
-    this.game.load.image('logo', '../../assets/logo/phaser.png');
     this.game.load.image('arrow', '../../assets/sprites/bulletArrow.png');
     this.game.load.image('arrow_fire', '../../assets/sprites/bulletArrow_Fire.png');
     this.game.load.image('arrow_power', '../../assets/sprites/bulletArrow_Power.png');
@@ -25,6 +24,8 @@ var load_state = {
     this.game.load.image('tower2', '../../assets/sprites/tower1.png');
     this.game.load.image('tower3', '../../assets/sprites/tower2.png');
     this.game.load.image('village', '../../assets/sprites/village.png');
+    this.game.load.image('logo', '../../assets/sprites/poguiraslogo.png');
+    this.game.load.image('bambu', '../../assets/sprites/bambu.png');
     this.game.load.image('aldeiaDefendidaPlaca', '../../assets/sprites/aldeiaDefendidaPlaca.png');
     this.game.load.image('aldeiaDestruidaPlaca', '../../assets/sprites/aldeiaDestruidaPlaca.png');
     this.game.load.image('aldeiaDefendida', '../../assets/sprites/aldeiaDefendida.png');

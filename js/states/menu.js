@@ -9,6 +9,8 @@ var menu_state = {
     }
     // Adiciona o botao de iniciar
     this.add.sprite(0, 0, 'aldeiaDestruida');
+    this.logo = this.add.sprite(10, 50, 'logo');
+    this.logo.scale.set(0.3);
     this.setStartButton();
     this.setCreditButton();
     this.setMuteButton();
@@ -36,16 +38,16 @@ var menu_state = {
     // Ha algum problema com a posicao em relacao ao mundo quando retorna ao estado de menu
     // Vou deixar fixo perto para ter menu por enquanto
     this.startButton.x = 300;
-    this.startButton.y = 300;
+    this.startButton.y = 400;
 
     this.creditButton.x = 230;
-    this.creditButton.y = 450;
+    this.creditButton.y = 550;
     
     this.muteButton.x = 370;
-    this.muteButton.y = 450;
+    this.muteButton.y = 550;
     
     this.volumeButton.x = 370;
-    this.volumeButton.y = 450;
+    this.volumeButton.y = 550;
     
     if (this.game.sound.mute === false) {
       this.muteButton.x = 1370;
@@ -69,7 +71,7 @@ var menu_state = {
   setCreditButton: function () {
     // Define variaveis de posicao
     var x = 20;
-    var y = 450;
+    var y = 550;
     // Adiciona o botao de iniciar
     this.creditButton = this.game.add.button(x, y, 'credit', this.credit, this, 1, 0, 1);
     this.creditButton.scale.set(1);
@@ -81,7 +83,7 @@ var menu_state = {
   setVolumeButton: function () {
     // Define variaveis de posicao
     var x = 370;
-    var y = 450;
+    var y = 550;
     // Adiciona o botao de iniciar
     this.volumeButton = this.game.add.button(x, y, 'music', this.mute, this, 1, 0, 1);
     this.volumeButton.scale.set(1);
@@ -93,7 +95,7 @@ var menu_state = {
   setMuteButton: function () {
     // Define variaveis de posicao
     var x = 370;
-    var y = 450;
+    var y = 550;
     // Adiciona o botao de iniciar
     this.muteButton = this.game.add.button(x, y, 'mute', this.mute, this, 1, 0, 1);
     this.muteButton.scale.set(1);
