@@ -36,7 +36,7 @@ var map;
 var layer;
 var fundoSprite;
 
-var muteX = 200;
+var muteX = 130;
 
 var play_state = {
   // TODO PRINCIPAL
@@ -126,9 +126,8 @@ var play_state = {
 
     // Adiciona botao de voltar ao menu
     // TODO - remover os objetos e limpar dados antes de voltar
-    this.stopButton = this.game.add.button(100, 50, 'start', this.restartGame, this, 1, 0, 1);
-    this.stopButton.scale.set(0.3);
-    this.stopButton.tint = 0xff00ff;
+    this.stopButton = this.game.add.button(50, 50, 'fechar', this.restartGame, this, 1, 0, 1);
+    this.stopButton.scale.set(0.5);
     this.stopButton.anchor.setTo(0.5, 0.5);
     this.stopButton.inputEnabled = true;
     this.stopButton.input.useHandCursor = true;
