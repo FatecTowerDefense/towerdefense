@@ -36,6 +36,8 @@ var map;
 var layer;
 var fundoSprite;
 
+var muteX = 200;
+
 var play_state = {
   // TODO PRINCIPAL
   // - criar lista de monstros com sprite, forca, vida etc - hj hard coded
@@ -106,7 +108,7 @@ var play_state = {
     bullets.setAll('outOfBoundsKill', true);
     bullets.setAll('checkWorldBounds', true);
     bullets.setAll('anchor.x', 0.5);
-		bullets.setAll('anchor.y', 0.5);
+    bullets.setAll('anchor.y', 0.5);
 		
     // Desenha um retângulo de menu de botões na parte inferior
     var shape = this.game.add.graphics(0, 0); // inicia o retangulo
@@ -130,6 +132,18 @@ var play_state = {
     this.stopButton.anchor.setTo(0.5, 0.5);
     this.stopButton.inputEnabled = true;
     this.stopButton.input.useHandCursor = true;
+    
+    this.muteButton = this.game.add.button(muteX, 50, 'mute', this.mute, this, 1, 0, 1);
+    this.muteButton.scale.set(0.5);
+    this.muteButton.anchor.setTo(0.5, 0.5);
+    this.muteButton.inputEnabled = true;
+    this.muteButton.input.useHandCursor = true;
+    
+    this.volumeButton = this.game.add.button(muteX, 50, 'music', this.mute, this, 1, 0, 1);
+    this.volumeButton.scale.set(0.5);
+    this.volumeButton.anchor.setTo(0.5, 0.5);
+    this.volumeButton.inputEnabled = true;
+    this.volumeButton.input.useHandCursor = true;
 
     // Cria textos de pontuacao dinheiro e onda
     // var text = "Money: " + money + " \nScore: " + score;
@@ -219,6 +233,14 @@ var play_state = {
 
     // Atualiza textos de status
     this.updateTexts();
+    
+    if (game.sound.mute === false) {
+        this.muteButton.x = 1370;
+        this.volumeButton.x = muteX;
+      } else {
+        this.muteButton.x = muteX;
+        this.volumeButton.x = 1370;
+      }
   },
 
   onDragStop: function (sprite, pointer) {
@@ -592,8 +614,12 @@ var play_state = {
 	  for(var i = 0; i < tilesArray.length; i++) {
 	    tilesArray[i].index = desiredIndex;
 	  }
-	}
-	
-	
+	},
+  
+    // Controlador de mute
+    mute: function () {
+      // altera volume de mute para audio normal
+      game.sound.mute = !game.sound.mute;
+    }
 
 };

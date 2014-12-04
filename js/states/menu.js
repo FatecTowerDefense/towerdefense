@@ -1,5 +1,4 @@
 var menuMusic = null;
-var mutado = false;
 var menu_state = {
   create: function () {
     if (menuMusic === null) {
@@ -30,11 +29,7 @@ var menu_state = {
   // Controlador de mute
   mute: function () {
     // altera volume de mute para audio normal
-    if (mutado === false) {
-      mutado = true;
-    } else {
-      mutado = false;
-    }
+    game.sound.mute = !game.sound.mute;
   },
 
   update: function () {
@@ -52,7 +47,7 @@ var menu_state = {
     this.volumeButton.x = 370;
     this.volumeButton.y = 450;
     
-    if (mutado === false) {
+    if (game.sound.mute === false) {
       this.muteButton.x = 1370;
     } else {
       this.volumeButton.x = 1370;
