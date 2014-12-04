@@ -60,20 +60,20 @@ var play_state = {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     // Cria e aplica o tile map
     map = this.game.add.tilemap('jsonmap');
-		
+
 		//pega imagens do tileset: primeiro argumento eh o nome desse tileset no JSON;
 		//o segundo eh a chave da imagem do tileset, criada no preload
     map.addTilesetImage('tileSet', 'tilesmap');
-		
+
 		//pega outra imagem do tileset, essa eh um tile gigante, que ocupa o mapa inteiro, pra mostrar o cenario
 		//map.addTilesetImage('map1Img', 'map1Image');
 		//cria camadas definidas no JSON
     layer = map.createLayer('buildables');
     //var imgLayer = map.createLayer('scenario');
-    
+
     fundoSprite = this.game.add.sprite(0,0, 'map1Image');
-    
-		
+
+
     layer.resizeWorld();
     // (antigo) caminho a ser percorrido pelos monstros
     /*tilePath = [{x: 1, y: 1}, {x: 2, y: 1}, {x: 2, y: 2}, {x: 2, y: 3}, {x: 2, y: 4}, {x: 2, y: 5}, {x: 2, y: 6},
@@ -81,7 +81,7 @@ var play_state = {
       {x: 10, y: 7}, {x: 11, y: 7}, {x: 12, y: 7}, {x: 13, y: 7}, {x: 13, y: 8}, {x: 14, y: 8}, {x: 15, y: 8}, {x: 16, y: 8},
       {x: 16, y: 9}, {x: 16, y: 10}, {x: 17, y: 10}, {x: 18, y: 10}, {x: 19, y: 10}, {x: 20, y: 10}, {x: 20, y: 11}, {x: 21, y: 11},
       {x: 22, y: 11}, {x: 23, y: 11}, {x: 24, y: 11}, {x: 25, y: 11}];*/
-		
+
 		//caminho sendo calculado
 		tilePath = this.calcPath(map, layer);
     // Cria grupo para Vila para facilicar a colisao com mudanca de vila entre os niveis
@@ -109,7 +109,7 @@ var play_state = {
     bullets.setAll('checkWorldBounds', true);
     bullets.setAll('anchor.x', 0.5);
     bullets.setAll('anchor.y', 0.5);
-		
+
     // Desenha um retângulo de menu de botões na parte inferior
     var shape = this.game.add.graphics(0, 0); // inicia o retangulo
     shape.lineStyle(2, 0x000000, 0.8); // largura, cor, alfa
@@ -131,13 +131,13 @@ var play_state = {
     this.stopButton.anchor.setTo(0.5, 0.5);
     this.stopButton.inputEnabled = true;
     this.stopButton.input.useHandCursor = true;
-    
+
     this.muteButton = this.game.add.button(muteX, 50, 'mute', this.mute, this, 1, 0, 1);
     this.muteButton.scale.set(0.5);
     this.muteButton.anchor.setTo(0.5, 0.5);
     this.muteButton.inputEnabled = true;
     this.muteButton.input.useHandCursor = true;
-    
+
     this.volumeButton = this.game.add.button(muteX, 50, 'music', this.mute, this, 1, 0, 1);
     this.volumeButton.scale.set(0.5);
     this.volumeButton.anchor.setTo(0.5, 0.5);
@@ -182,7 +182,7 @@ var play_state = {
     // texto da torre
     text = "Power";
     this.game.add.text(178, 654, text, style);
-    
+
     text = "$300 \n 10";
     this.game.add.text(217, 690, text, style2);
 
@@ -196,10 +196,10 @@ var play_state = {
     // texto da torre
     text = "Rapid Fire";
     this.game.add.text(265, 654, text, style);
-    
+
     text = "$150 \n 10";
     this.game.add.text(310, 690, text, style2);
-    
+
     // Música de fundo da fase
     bgMusic = this.game.add.audio('level1');
     bgMusic.play('', 0, 1, true);
@@ -207,7 +207,7 @@ var play_state = {
     // SFX
     sfxVictory = this.game.add.audio('victory');
     sfxTower = this.game.add.audio('towerCreated');
-    
+
   },
 
   update: function () {
@@ -232,7 +232,7 @@ var play_state = {
 
     // Atualiza textos de status
     this.updateTexts();
-    
+
     if (this.game.sound.mute === false) {
         this.muteButton.x = 1370;
         this.volumeButton.x = muteX;
@@ -273,10 +273,10 @@ var play_state = {
       bulletSpeed =  75;
       price =  300;
       bulletSprite = 'arrow_power';
-			
+
 			offsetX = 30;
 			offsetY = 20;
-			
+
       tower2.x = 160;
       tower2.y = 672;
     } else if (sprite.key === 'tower3') {
@@ -289,10 +289,10 @@ var play_state = {
       bulletSpeed =  90;
       price =  150;
       bulletSprite = 'arrow';
-			
+
 			offsetX = 30;
 			offsetY = 24;
-			
+
       tower3.x = 256;
       tower3.y = 672;
     }
@@ -304,9 +304,9 @@ var play_state = {
       } else {
         console.log('Não há espaço para construir essa torre!');
       }
-      
-      
-      
+
+
+
     } else {
       console.log('Você não possui dinheiro suficiente para comprar esta torre!');
     }
@@ -326,12 +326,12 @@ var play_state = {
       this.newWave();
     }
   },
-  
-  
+
+
   fechar: function () {
     this.game.state.start('menu');
   },
-  
+
   retornar: function () {
     this.game.state.start('play');
   },
@@ -353,13 +353,13 @@ var play_state = {
     var waveContent;
     if(levelCurrent > 0){
       waveContent = [{sprite: 'curupira', amount: 3 + waveCurrent * levelCurrent}, {sprite: 'corposeco', amount: 2 + waveCurrent * levelCurrent}];
-      
-      
+
+
     }else{
       waveContent = [{sprite: 'curupira', amount: 3 + waveCurrent}];
 
     }
-    
+
     // cria uma nova onda
     // formato de envio dos monstros da onda: [{sprite:'person', amount:3},{sprite:'person', amount:3}]
     // Pode intercalar e repetir monstros e sequencias
@@ -375,23 +375,26 @@ var play_state = {
           fundoSprite.loadTexture('map2Image');
           console.log('mudou nivel, mudou fundo');
           break;
-          
+
         case 2:
           fundoSprite.loadTexture('map3Image');
           console.log('mudou nivel, mudou fundo');
           break;
-          
+
         case 3:
+          bgMusic.stop();
+          sfxVictory.play();
+
           // limpa a tela
           this.game.world.removeAll();
           clearTimeout(this.monstersBlock);
-          
+
           // adiciona imagens
-          this.game.add.sprite(0, 0, 'aldeiaDefendida'); 
-          this.game.add.sprite(50, 0, 'aldeiaDefendidaPlaca'); 
-          
+          this.game.add.sprite(0, 0, 'aldeiaDefendida');
+          this.game.add.sprite(50, 0, 'aldeiaDefendidaPlaca');
+
           // adiciona os botoes
-          
+
           // botoes de fechar
           var x = 230;
           var y = 250;
@@ -412,13 +415,13 @@ var play_state = {
 
           console.log('ganhoooooo');
           break;
-        
+
         default:
           console.log('eu nao devia aparecer');
           break;
       }
-      
-      
+
+
     }
     // levelTextLevel.setText("Level: " + levelCurrent + " \nWave: " + waveCurrent);
   },
@@ -431,7 +434,7 @@ var play_state = {
     // manda o monstro verificar se morreu
     Monster.prototype.death(monster);
   },
-	
+
 	calcPath : function (tilemap, layer) {
 	//tentativa de pathfinding. vamulaaaa
 	//esse eh o array que sera retornado para o tilePAth
@@ -456,9 +459,9 @@ var play_state = {
 				break;
 			}
 		}
-		
-		
-		
+
+
+
 		//agora, confere os tiles ao redor da base para encontrar um tile marcado com index de path (4)
 		//adiciona no pathArray quando achar
 		//valores iniciais de previous x e y malucos para ele nao desprezar nenhum lado
@@ -489,15 +492,15 @@ var play_state = {
 
 		}
 
-		
+
 	},
-	
+
 	checkIndexAroundTile : function (tilemap, layer, desiredIndex, tileX, tileY, previousX, previousY) {
-		
-		
+
+
 
 		var tile = tilemap.getTile(tileX + 1, tileY, layer, true);
-		
+
 		if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX + 1) || (previousY !== tileY))) {
 			return tile;
 		} else {
@@ -521,82 +524,82 @@ var play_state = {
 				}
 			}
 		}
-		
+
 	},
-	
-	
+
+
 	checkIndexDirectionRestricted : function (tilemap, layer, desiredIndex, tileX, tileY, previousX, previousY, horizontalCheck) {
 	  //restringe horizontal ou verticalmente a busca por tiles com indice desejado
-	  
+
 	  var tile;
-	  
+
 	  if(horizontalCheck){
 	    tile = tilemap.getTile(tileX + 1, tileY, layer, true);
-	    
+
 	    if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX + 1) || (previousY !== tileY))) {
 			  return tile;
 		  } else {
 		    tile = tilemap.getTile(tileX - 1, tileY, layer, true);
-		    
+
 		    if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX - 1) || (previousY !== tileY))) {
 					return tile;
 				} else {
 				  return null;
 				}
 		  }
-	    
+
 	  }else{
-	    
+
 	    //vertical entao
-	    
+
 	    tile = tilemap.getTile(tileX, tileY + 1, layer, true);
-	    
+
 			if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX) || (previousY !== tileY + 1))) {
 				return tile;
 			} else {
-			  
+
 			  tile = tilemap.getTile(tileX, tileY - 1, layer, true);
-				
+
 					if ((tile) && (tile.index === desiredIndex) && ((previousX !== tileX) || (previousY !== tileY - 1))) {
 						return tile;
 					} else {
 						return null;
 					}
 			}
-	    
+
 	  }
-	  
-	  
+
+
 	},
-	
-	
+
+
 	isTileBuildable : function (x, y, tileMap, layer, buildableIndex, unBuildableIndex) {
-	  
+
 	  //o tile sobre o qual o mouse esta
 	  var tile = tileMap.getTileWorldXY(x, y, 32, 32, layer);
-	  
+
 	  //indice do tile buildable no tileset = 2
-	  
+
 	  if(tile.index === buildableIndex) {
-	    
+
 	    var tileDoLado, tileVert;
 	    //bom, tem um tile onde da pra construir aqui
 	    //agora, a gente precisa ver se tem outros ao redor.
 	    //a gente precisa de uma area de 2x2 pra botar a torre
-	    
+
 	    //primeiro checando horizontalmente
 	    tileDoLado = this.checkIndexDirectionRestricted(tileMap, layer, buildableIndex, tile.x, tile.y, -20, -20, true);
 	    if(tileDoLado !== null){
 	      //legal, tem um tile onde da pra construir do lado
 	      //vamos checar vertical entao
 	      tileVert = this.checkIndexDirectionRestricted(tileMap, layer, buildableIndex, tile.x, tile.y, -20, -20, false);
-	      
+
 	      if(tileVert !== null){
 	        //tamo quase deixando construir essa torre, mas falta mais uma coisin:
 	        //precisamos do quarto espaco
 	        //pega o y do tilevert junto com o x do tiledolado pra ver se esse quarto eh buildable
 	        var quartoTile = tileMap.getTile(tileDoLado.x, tileVert.y, layer, true);
-	        
+
 	        if ((quartoTile) && (quartoTile.index === buildableIndex)) {
 	          //aeeee, constroi o baguio
 	          if(tileDoLado.x < tile.x){
@@ -609,7 +612,7 @@ var play_state = {
 	              this.setIndex([tile, tileVert, tileDoLado, quartoTile], unBuildableIndex);
 	              return tileDoLado;
 	            }
-	            
+
 	          } else {
 	            if(tileVert.y < tile.y) {
 	              //marca todos os tiles usados por essa torre como inapropriados para construcao
@@ -625,7 +628,7 @@ var play_state = {
 					  //fracassou
 					  return null;
 					}
-			
+
 	      } else {
 	        //apertado demais
 	        return null;
@@ -634,23 +637,23 @@ var play_state = {
 	      //cancela essa construcao, nao tem espaco horizontal onde foi especificado
 	      return null;
 	    }
-	    
-	    
-	    
+
+
+
 	  } else {
 	    return null;
 	  }
-	    
-	    
+
+
 	},
-	
-	
+
+
 	setIndex : function (tilesArray, desiredIndex){
 	  for(var i = 0; i < tilesArray.length; i++) {
 	    tilesArray[i].index = desiredIndex;
 	  }
 	},
-  
+
     // Controlador de mute
     mute: function () {
       // altera volume de mute para audio normal
