@@ -59,7 +59,9 @@ var load_state = {
     // Carrega os arquivos de BGM do jogo
     this.game.load.audio('level1', '../../assets/audio/level1.ogg', '../../assets/audio/victory.mp3');
     this.game.load.audio('menu', '../../assets/audio/menu.ogg', '../../assets/audio/menu.mp3');
-
+    
+    //json monstrao
+    this.game.load.text('monsterJson', '../../assets/tilemaps/monsterJson.json');
   },
 
   create: function () {

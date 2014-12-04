@@ -38,6 +38,8 @@ var fundoSprite;
 
 var muteX = 130;
 
+var monsterProps;
+
 var play_state = {
   // TODO PRINCIPAL
   // - criar lista de monstros com sprite, forca, vida etc - hj hard coded
@@ -65,6 +67,7 @@ var play_state = {
 		//o segundo eh a chave da imagem do tileset, criada no preload
     map.addTilesetImage('tileSet', 'tilesmap');
 
+    monsterProps = JSON.parse(this.game.cache.getText('monsterJson'));
 		//pega outra imagem do tileset, essa eh um tile gigante, que ocupa o mapa inteiro, pra mostrar o cenario
 		//map.addTilesetImage('map1Img', 'map1Image');
 		//cria camadas definidas no JSON

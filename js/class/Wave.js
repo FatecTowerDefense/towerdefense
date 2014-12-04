@@ -1,4 +1,4 @@
-/*globals game, waveMonsters:true, Monster, monstersBlock:true, tilePath */
+/*globals game, waveMonsters:true, Monster, monstersBlock:true, tilePath, monsterProps */
 var Wave = function (monsterSprite, timeToStart, timeBetween, points) {
   // Recebe as variaveis
   // cria a wave como sprite para receber as propriedades - verificar como gerar objeto generico
@@ -36,12 +36,49 @@ Wave.prototype.begin = function (wave) {
   var i = 0;
   var j = 0;
   monstersBlock = setInterval(function () {
+    var velo, dano, vida, animations;
+    
     // Para cada tipo de monstro
     if (j < wave.monstersType) {
+      
+      switch(wave.monsterSprite[j].sprite){
+        case 'curupira':
+          velo = monsterProps.curupiraProps.velocidade;
+          dano = monsterProps.curupiraProps.dano;
+          vida = monsterProps.curupiraProps.vida;
+          animations = monsterProps.curupiraProps.animations;
+          break;
+        
+        case 'corposeco':
+          velo = monsterProps.corpoSecoProps.velocidade;
+          dano = monsterProps.corpoSecoProps.dano;
+          vida = monsterProps.corpoSecoProps.vida;
+          animations = monsterProps.corpoSecoProps.animations;
+          break;
+          
+        case 'saci':
+          velo = monsterProps.saciProps.velocidade;
+          dano = monsterProps.saciProps.dano;
+          vida = monsterProps.saciProps.vida;
+          animations = monsterProps.saciProps.animations;
+          break;
+          
+        case 'mula':
+          velo = monsterProps.mulaProps.velocidade;
+          dano = monsterProps.mulaProps.dano;
+          vida = monsterProps.mulaProps.vida;
+          animations = monsterProps.mulaProps.animations;
+          break;
+          
+        default:
+          console.log('que sprite eh essa??');
+          break;
+      }
+      
       // Para cada um dentro da quantidade definida em amount
       if (i < wave.monsterSprite[j].amount) {
         // Cria o monstro com o sprite especifico
-        new Monster(tilePath[0].x, tilePath[0].y, wave.monsterSprite[j].sprite, 1, 1, 20, 150); // xTile, yTile, sprite, spriteLength, speed, damage, health
+        new Monster(tilePath[0].x, tilePath[0].y, wave.monsterSprite[j].sprite, 1, velo, dano, vida); // xTile, yTile, sprite, spriteLength, speed, damage, health
         i++;
       } else {
         j++;
