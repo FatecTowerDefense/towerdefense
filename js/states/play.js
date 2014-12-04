@@ -1,4 +1,4 @@
-/*globals  Phaser, Village, Monster, Tower, Wave */
+/*globals  Phaser, Village, Monster, Tower, Wave, monstersBlock, waveStartTime */
 
 /* Global Variables */
 
@@ -210,6 +210,26 @@ var play_state = {
     // SFX
     sfxVictory = this.game.add.audio('victory');
     sfxTower = this.game.add.audio('towerCreated');
+    if (sfxVictory.isPlaying) {
+      sfxVictory.stop();
+    }
+    
+    // inicializa valores - level - pontuacao - qtdade de monstros
+    waveCurrent = 0;
+    levelCurrent = 0;
+    waveMonsters = 0;
+    score = 0;
+    // define dinheiro inicial do jogador
+    money = 1000;
+    
+    // zera timers
+    if (typeof monstersBlock != 'undefined') {
+      clearTimeout(monstersBlock);
+    }
+    if (typeof waveStartTime != 'undefined') {
+      clearTimeout(waveStartTime);
+    }
+          
 
   },
 
@@ -326,17 +346,10 @@ var play_state = {
       if (waveCurrent !== 0) {
         sfxVictory.play();
       }
-      this.newWave();
+      if (levelCurrent < 3) {
+        this.newWave();
+      }
     }
-  },
-
-
-  fechar: function () {
-    this.game.state.start('menu');
-  },
-
-  retornar: function () {
-    this.game.state.start('play');
   },
 
   restartGame: function () {
@@ -390,7 +403,14 @@ var play_state = {
 
           // limpa a tela
           this.game.world.removeAll();
-          clearTimeout(this.monstersBlock);
+          if (typeof monstersBlock != 'undefined') {
+            clearTimeout(monstersBlock);
+          }
+          if (typeof waveStartTime != 'undefined') {
+            clearTimeout(waveStartTime);
+          }
+          
+          waveMonsters = 10;
 
           // adiciona imagens
           this.game.add.sprite(0, 0, 'aldeiaDefendida');
@@ -401,7 +421,7 @@ var play_state = {
           // botoes de fechar
           var x = 230;
           var y = 250;
-          this.game.fecharButton = this.game.add.button(x, y, 'fechar', this.fechar(), this.game, 1, 0, 1);
+          this.game.fecharButton = this.game.add.button(x, y, 'fechar', this.fechar, this, 1, 0, 1);
           this.game.fecharButton.scale.set(1);
           this.game.fecharButton.anchor.setTo(0.5, 0.5);
           this.game.fecharButton.inputEnabled = true;
@@ -410,7 +430,7 @@ var play_state = {
           x = 370;
           y = 250;
           // Adiciona o botao de iniciar
-          this.game.retornarButton = this.game.add.button(x, y, 'retornar', this.retornar(), this.game, 1, 0, 1);
+          this.game.retornarButton = this.game.add.button(x, y, 'retornar', this.retornar, this, 1, 0, 1);
           this.game.retornarButton.scale.set(1);
           this.game.retornarButton.anchor.setTo(0.5, 0.5);
           this.game.retornarButton.inputEnabled = true;
@@ -427,6 +447,15 @@ var play_state = {
 
     }
     // levelTextLevel.setText("Level: " + levelCurrent + " \nWave: " + waveCurrent);
+  },
+
+
+  fechar: function () {
+    this.game.state.start('menu');
+  },
+
+  retornar: function () {
+    this.game.state.start('play');
   },
 
   collisionChecker: function (bullet, monster) {
@@ -660,7 +689,7 @@ var play_state = {
     // Controlador de mute
     mute: function () {
       // altera volume de mute para audio normal
-      game.sound.mute = !game.sound.mute;
+      this.game.sound.mute = !this.game.sound.mute;
     }
 
 };

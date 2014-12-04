@@ -1,4 +1,4 @@
-/*globals game, tilePath, tileSize, villages, monstersBlock, bgMusic  */
+/*globals game, tilePath, tileSize, villages, monstersBlock, bgMusic, waveMonsters  */
 var Village = function (sprite, health) {
   // verifica o ponto final do caminho
   var xTile = tilePath[tilePath.length - 2].x;
@@ -28,6 +28,7 @@ Village.prototype.damageTaken = function (village, monster) {
   monster.kill();
   monster.lifeBarStatus.destroy();
   monster.lifeBar.destroy();
+  waveMonsters--;
 
   // Calcula o dano tomado - escala e posiciona a barra de vida atual
   var damTaken = village.health / village.totalHealth;
