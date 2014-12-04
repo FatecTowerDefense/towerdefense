@@ -78,7 +78,7 @@ Wave.prototype.begin = function (wave) {
       // Para cada um dentro da quantidade definida em amount
       if (i < wave.monsterSprite[j].amount) {
         // Cria o monstro com o sprite especifico
-        new Monster(tilePath[0].x, tilePath[0].y, wave.monsterSprite[j].sprite, 1, velo, dano, vida); // xTile, yTile, sprite, spriteLength, speed, damage, health
+        new Monster(tilePath[0].x, tilePath[0].y, wave.monsterSprite[j].sprite, 1, velo, dano, vida, animations); // xTile, yTile, sprite, spriteLength, speed, damage, health, animations
         i++;
       } else {
         j++;

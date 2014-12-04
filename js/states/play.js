@@ -354,12 +354,12 @@ var play_state = {
 
   newWave: function () {
     var waveContent;
-    if(levelCurrent > 0){
-      waveContent = [{sprite: 'curupira', amount: 3 + waveCurrent * levelCurrent}, {sprite: 'corposeco', amount: 2 + waveCurrent * levelCurrent}];
+    if(levelCurrent > 1){
+      waveContent = [{sprite: 'curupira', amount: 8 + waveCurrent * levelCurrent}, {sprite: 'saci', amount: 4 + waveCurrent * levelCurrent}, {sprite:'mula', amount: 5 + waveCurrent * levelCurrent}, {sprite: 'corposeco', amount: 6 + waveCurrent * levelCurrent * 2}];
 
 
     }else{
-      waveContent = [{sprite: 'curupira', amount: 3 + waveCurrent}];
+      waveContent = [{sprite: 'curupira', amount: 6 + waveCurrent * 2 * levelCurrent}, {sprite: 'saci', amount: 4 + waveCurrent * levelCurrent}, {sprite:'mula', amount: 5 + waveCurrent * levelCurrent}];
 
     }
 

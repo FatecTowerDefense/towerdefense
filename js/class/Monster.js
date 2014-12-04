@@ -1,5 +1,5 @@
 /*globals game, tileSize, monsters, tilePath, waveMonsters:true, score:true, money:true */
-var Monster = function (xTile, yTile, sprite, spriteLength, speed, damage, health) {
+var Monster = function (xTile, yTile, sprite, spriteLength, speed, damage, health, animations) {
   // TODO - definir velocidade - dano e vida de acordo com a sprite enviada, ou trocar sprite
   // pelo nome do monstro e pegar os dados de uma lista global
 
@@ -9,12 +9,12 @@ var Monster = function (xTile, yTile, sprite, spriteLength, speed, damage, healt
   this.monster.xTile = xTile;
   this.monster.yTile = yTile;
   // Adiciona animacao de andar em relacao ao sprite adicionado
-  this.monster.animations.add('runRight', [0,1,2], 5, true);
-  this.monster.animations.add('runLeft', [3,4,5], 5, true);
-  this.monster.animations.add('runDown', [6,7,8], 5, true);
-  this.monster.animations.add('runUp', [9,10,11], 5, true);
-  this.monster.animations.add('dieRight', [12], 1, false);
-  this.monster.animations.add('dieLeft', [13], 1, false);
+  this.monster.animations.add('runRight', animations.runRight, 5, true);
+  this.monster.animations.add('runLeft', animations.runLeft, 5, true);
+  this.monster.animations.add('runDown', animations.runDown, 5, true);
+  this.monster.animations.add('runUp', animations.runUp, 5, true);
+  //this.monster.animations.add('dieRight', [12], 1, false); //nao sendo utilizadas no momento
+ // this.monster.animations.add('dieLeft', [13], 1, false);
   //this.monster.animations.play('runRight');
   // ancora no centro de cada sprite
   this.monster.anchor.setTo(0.5, 0.5);
