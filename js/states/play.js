@@ -5,8 +5,8 @@
 // Tamanho do tile
 var tileSize = 32;
 // Inicia onda - level - pontuacao - qtdade de monstros
-var waveCurrent = 0;
-var levelCurrent = 0;
+var waveCurrent = 2;
+var levelCurrent = 2;
 var waveMonsters = 0;
 var score = 0;
 // define dinheiro inicial do jogador
@@ -233,7 +233,7 @@ var play_state = {
     // Atualiza textos de status
     this.updateTexts();
     
-    if (game.sound.mute === false) {
+    if (this.game.sound.mute === false) {
         this.muteButton.x = 1370;
         this.volumeButton.x = muteX;
       } else {
@@ -326,6 +326,15 @@ var play_state = {
       this.newWave();
     }
   },
+  
+  
+  fechar: function () {
+    this.game.state.start('menu');
+  },
+  
+  retornar: function () {
+    this.game.state.start('play');
+  },
 
   restartGame: function () {
     //Encerra a música e o SFX da fase
@@ -373,7 +382,34 @@ var play_state = {
           break;
           
         case 3:
-          fundoSprite.loadTexture('aldeiaDefendida');
+          // limpa a tela
+          this.game.world.removeAll();
+          clearTimeout(this.monstersBlock);
+          
+          // adiciona imagens
+          this.game.add.sprite(0, 0, 'aldeiaDefendida'); 
+          this.game.add.sprite(50, 0, 'aldeiaDefendidaPlaca'); 
+          
+          // adiciona os botoes
+          
+          // botoes de fechar
+          var x = 230;
+          var y = 250;
+          this.game.fecharButton = this.game.add.button(x, y, 'fechar', this.fechar(), this.game, 1, 0, 1);
+          this.game.fecharButton.scale.set(1);
+          this.game.fecharButton.anchor.setTo(0.5, 0.5);
+          this.game.fecharButton.inputEnabled = true;
+          this.game.fecharButton.input.useHandCursor = true;
+          // botoes de voltar
+          x = 370;
+          y = 250;
+          // Adiciona o botao de iniciar
+          this.game.retornarButton = this.game.add.button(x, y, 'retornar', this.retornar(), this.game, 1, 0, 1);
+          this.game.retornarButton.scale.set(1);
+          this.game.retornarButton.anchor.setTo(0.5, 0.5);
+          this.game.retornarButton.inputEnabled = true;
+          this.game.retornarButton.input.useHandCursor = true;
+
           console.log('ganhoooooo');
           break;
         
