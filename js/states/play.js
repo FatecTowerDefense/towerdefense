@@ -30,6 +30,7 @@ var bgMusic;
 // SFX
 var sfxVictory;
 var sfxTower;
+var sfxNoMoney;
 
 //tilemap e layer que controla caminho e locais onde da pra construir
 var map;
@@ -209,10 +210,8 @@ var play_state = {
     // SFX
     sfxVictory = this.game.add.audio('victory');
     sfxTower = this.game.add.audio('towerCreated');
-    if (sfxVictory.isPlaying) {
-      sfxVictory.stop();
-    }
-    
+    sfxNoMoney = this.game.add.audio('noMoney');
+
     // inicializa valores - level - pontuacao - qtdade de monstros
     waveCurrent = 0;
     levelCurrent = 0;
@@ -220,7 +219,7 @@ var play_state = {
     score = 0;
     // define dinheiro inicial do jogador
     money = 1000;
-    
+
     // zera timers
     if (typeof monstersBlock != 'undefined') {
       clearTimeout(monstersBlock);
@@ -228,9 +227,9 @@ var play_state = {
     if (typeof waveStartTime != 'undefined') {
       clearTimeout(waveStartTime);
     }
-          
+
     // cortina de bambu
-    
+
     bambuDireita = this.game.add.sprite(320,0, 'bambu');
     bambuDireita.scale.set(1);
     bambuEsquerda = this.game.add.sprite(-320,0,'bambu');
@@ -241,7 +240,7 @@ var play_state = {
   update: function () {
     // Abre as cortinas
     this.abreCortinas();
-    
+
     // Verifica se ha monstros para iniciar proxima onda
     this.checkWaveEnd();
 
@@ -279,7 +278,7 @@ var play_state = {
       bambuDireita.x +=2;
     }
   },
-  
+
   pauseGame: function () {
     this.game.paused = true;
     console.log(this.game.paused);
@@ -290,15 +289,15 @@ var play_state = {
     this.mascara.drawRect(0, 0, this.game.width, this.game.height); // x, y, largura, altura
     this.mascara.endFill();
     this.stopButton.bringToTop();
-    
+
     this.game.input.onDown.add(this.unpauseGame, this);
   },
-  
+
   unpauseGame: function () {
     this.game.paused = false;
     this.mascara.destroy();
   },
-  
+
   onDragStop: function (sprite, pointer) {
     // TODO - checar se pode adicionar o sprite na posicao
     var x = pointer.x;
@@ -362,9 +361,8 @@ var play_state = {
         console.log('Não há espaço para construir essa torre!');
       }
 
-
-
     } else {
+      sfxNoMoney.play();
       console.log('Você não possui dinheiro suficiente para comprar esta torre!');
     }
   },
@@ -443,7 +441,7 @@ var play_state = {
           if (typeof waveStartTime != 'undefined') {
             clearTimeout(waveStartTime);
           }
-          
+
           waveMonsters = 10;
 
           // adiciona imagens

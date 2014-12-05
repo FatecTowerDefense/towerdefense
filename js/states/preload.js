@@ -50,18 +50,19 @@ var load_state = {
 		this.game.load.image('map1Image', '../../assets/tilemaps/mapa_1Art.png');
 		this.game.load.image('map2Image', '../../assets/tilemaps/mapa_2Art.png');
 		this.game.load.image('map3Image', '../../assets/tilemaps/mapa_3Art.png');
-    
+
     // Carrega os arquivos de SFX do jogo
-    this.game.load.audio('victory', '../../assets/audio/victory.ogg', '../../assets/audio/victory.mp3');
-    this.game.load.audio('gameover', '../../assets/audio/gameover.ogg', '../../assets/audio/gameover.mp3');
-    this.game.load.audio('towerCreated', '../../assets/audio/towerCreated.ogg', '../../assets/audio/towerCreated.mp3');
-    this.game.load.audio('baseAttacked', '../../assets/audio/baseAttacked.ogg', '../../assets/audio/baseAttacked.mp3');
-    this.game.load.audio('towerFire', '../../assets/audio/hit.ogg', '../../assets/audio/hit.mp3');
-    
+    this.game.load.audio('victory', ['../../assets/audio/victory.ogg', '../../assets/audio/victory.mp3']);
+    this.game.load.audio('gameover', ['../../assets/audio/gameover.ogg', '../../assets/audio/gameover.mp3']);
+    this.game.load.audio('towerCreated', ['../../assets/audio/towerCreated.ogg', '../../assets/audio/towerCreated.mp3']);
+    this.game.load.audio('baseAttacked', ['../../assets/audio/baseAttacked.ogg', '../../assets/audio/baseAttacked.mp3']);
+    this.game.load.audio('towerFire', ['../../assets/audio/hit.ogg', '../../assets/audio/hit.mp3']);
+    this.game.load.audio('noMoney', ['../../assets/audio/noMoney.ogg', '../../assets/audio/noMoney.mp3'])
+
     // Carrega os arquivos de BGM do jogo
-    this.game.load.audio('level1', '../../assets/audio/level1.ogg', '../../assets/audio/victory.mp3');
-    this.game.load.audio('menu', '../../assets/audio/menu.ogg', '../../assets/audio/menu.mp3');
-    
+    this.game.load.audio('level1', ['../../assets/audio/level1.ogg', '../../assets/audio/victory.mp3']);
+    this.game.load.audio('menu', ['../../assets/audio/menu.ogg', '../../assets/audio/menu.mp3']);
+
     //json monstrao
     this.game.load.text('monsterJson', '../../assets/tilemaps/monsterJson.json');
   },
@@ -73,13 +74,14 @@ var load_state = {
 
   update: function () {
     // todo frame verifica se ja esta pronto, qd estiver vai para o estado 'menu'
-    if (this.cache.isSoundDecoded('menu') && 
+    if (this.cache.isSoundDecoded('menu') &&
         this.cache.isSoundDecoded('gameover') &&
         this.cache.isSoundDecoded('towerCreated') &&
         this.cache.isSoundDecoded('victory') &&
         this.cache.isSoundDecoded('level1') &&
         this.cache.isSoundDecoded('baseAttacked') &&
-        this.cache.isSoundDecoded('towerFire'))
+        this.cache.isSoundDecoded('towerFire') &&
+        this.cache.isSoundDecoded('noMoney'))
     {
       if (this.ready) {
         this.game.state.start('menu');
