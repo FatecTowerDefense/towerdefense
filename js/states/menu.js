@@ -8,7 +8,7 @@ var menu_state = {
       menuMusic.play('', 0, 1, true);
     }
     // Adiciona o botao de iniciar
-    this.add.sprite(0, 0, 'aldeiaDestruida');
+    this.add.sprite(0, 0, 'menuPrincipal');
     this.logo = this.add.sprite(10, 50, 'logo');
     this.logo.scale.set(0.3);
     this.setStartButton();
