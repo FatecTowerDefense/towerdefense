@@ -128,7 +128,7 @@ var play_state = {
 
     // Adiciona botao de voltar ao menu
     // TODO - remover os objetos e limpar dados antes de voltar
-    this.stopButton = this.game.add.button(50, 50, 'fechar', this.restartGame, this, 1, 0, 1);
+    this.stopButton = this.game.add.button(50, 50, 'fechar', this.pauseGame, this, 1, 0, 1);
     this.stopButton.scale.set(0.5);
     this.stopButton.anchor.setTo(0.5, 0.5);
     this.stopButton.inputEnabled = true;
@@ -278,6 +278,25 @@ var play_state = {
       bambuEsquerda.x -=2;
       bambuDireita.x +=2;
     }
+  },
+  
+  pauseGame: function () {
+    this.game.paused = true;
+    console.log(this.game.paused);
+    // Desenha um retângulo de menu de botões na parte inferior
+    this.mascara = this.game.add.graphics(0, 0); // inicia o retangulo
+    this.mascara.lineStyle(10, 0x000000, 0.8); // largura, cor, alfa
+    this.mascara.beginFill(0x222222, 0.7); // cor, alfa
+    this.mascara.drawRect(0, 0, this.game.width, this.game.height); // x, y, largura, altura
+    this.mascara.endFill();
+    this.stopButton.bringToTop();
+    
+    this.game.input.onDown.add(this.unpauseGame, this);
+  },
+  
+  unpauseGame: function () {
+    this.game.paused = false;
+    this.mascara.destroy();
   },
   
   onDragStop: function (sprite, pointer) {
