@@ -21,7 +21,7 @@ var credit_state = {
   update: function () {
     // Ha algum problema com a posicao em relacao ao mundo quando retorna ao estado de menu
     // Vou deixar fixo perto para ter menu por enquanto
-    this.creditSprite.y -= 2.5;
+    this.creditSprite.y -= 1.75;
     
     if(this.creditSprite.y < (this.creditSprite.height * -1) - 40){
       this.creditSprite.y = 768;
