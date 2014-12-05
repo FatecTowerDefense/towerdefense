@@ -230,9 +230,9 @@ var play_state = {
 
     // cortina de bambu
 
-    bambuDireita = this.game.add.sprite(320,0, 'bambu');
+    bambuDireita = this.game.add.sprite(0,0, 'bambu2');
     bambuDireita.scale.set(1);
-    bambuEsquerda = this.game.add.sprite(-320,0,'bambu');
+    bambuEsquerda = this.game.add.sprite(0,0,'bambu');
     bambuEsquerda.scale.set(1);
 
   },
