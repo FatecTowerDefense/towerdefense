@@ -413,7 +413,7 @@ var play_state = {
     // Pode intercalar e repetir monstros e sequencias
     // Ele deixa um espaço vazio entre cada item da onda
     waveCurrent++;
-    console.log('wave');
+    //console.log('wave');
     new Wave(waveContent, 5000, 1000, 250);
     if (waveCurrent > 3) {
       waveCurrent = 1;
@@ -421,12 +421,12 @@ var play_state = {
       switch (levelCurrent) {
         case  1:
           fundoSprite.loadTexture('map2Image');
-          console.log('mudou nivel, mudou fundo');
+          //console.log('mudou nivel, mudou fundo');
           break;
 
         case 2:
           fundoSprite.loadTexture('map3Image');
-          console.log('mudou nivel, mudou fundo');
+          //console.log('mudou nivel, mudou fundo');
           break;
 
         case 3:

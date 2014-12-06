@@ -30,7 +30,7 @@ var load_state = {
     this.game.load.image('aldeiaDefendidaPlaca', '../../assets/sprites/aldeiaDefendidaPlaca.png');
     this.game.load.image('aldeiaDestruidaPlaca', '../../assets/sprites/aldeiaDestruidaPlaca.png');
     this.game.load.image('aldeiaDefendida', '../../assets/sprites/aldeiaDefendida.png');
-    this.game.load.image('aldeiaDestruida', '../../assets/sprites/aldeiaDefendida.png');
+    this.game.load.image('aldeiaDestruida', '../../assets/sprites/aldeia_derrotada3.png');
     this.game.load.image('menuPrincipal', '../../assets/sprites/Menu_Principal.png');
     this.game.load.image('creditos', '../../assets/sprites/TeladeCreditos.png');
     this.game.load.spritesheet('start', '../../assets/sprites/startsprite.png', 481, 193, 2);
